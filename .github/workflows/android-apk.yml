@@ -1,11 +1,11 @@
 # 다르마 갤럭시 2027 · 안드로이드 APK 자동 빌드
-# PC판과 같은 게임 소스(src/ lib/ vendor/)에 모바일 레이어(mobile/web/)를 얹어 APK를 만듭니다.
+# 공개 배포본 docs/m/(난독화된 모바일판)을 Capacitor 안드로이드 껍데기에 담아 APK를 만듭니다.
 name: Android APK
 
 on:
   push:
     branches: [main, 'claude/**']
-    paths: ['src/**', 'lib/**', 'vendor/**', 'mobile/**', 'build.py', '.github/workflows/android-apk.yml']
+    paths: ['docs/m/**', 'mobile/**', '.github/workflows/android-apk.yml']
   workflow_dispatch:
 
 permissions:
@@ -32,9 +32,7 @@ jobs:
           cache: npm
           cache-dependency-path: mobile/package-lock.json
 
-      - uses: android-actions/setup-android@v3
-
-      - name: 웹 본체 만들기 + Capacitor 동기화
+      - name: 모바일 배포본 담기 + Capacitor 동기화
         working-directory: mobile
         run: |
           npm ci

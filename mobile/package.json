@@ -1,10 +1,10 @@
 {
   "name": "dharma-galaxy-2027-android",
-  "version": "0.4.0",
+  "version": "0.5.2",
   "private": true,
   "description": "다르마 갤럭시 2027 안드로이드 앱 (Capacitor) — 피크닉 신영호 · 임지혜 (이스턴드래곤 출판사)",
   "scripts": {
-    "web": "python3 build_mobile.py && rm -rf www && cp -r ../docs/m www",
+    "web": "rm -rf www && cp -r ../docs/m www",
     "sync": "npm run web && npx cap sync android",
     "apk": "npm run sync && cd android && ./gradlew assembleDebug"
   },

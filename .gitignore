@@ -1,7 +1,7 @@
 node_modules/
 *.png
 __pycache__/
-# 모바일(안드로이드) 판: 아이콘·스플래시 PNG는 저장소에 포함
+# 안드로이드판: 아이콘·스플래시 PNG 포함, 빌드 산출물 제외
 !mobile/**/*.png
 !docs/m/icons/*.png
 mobile/www/

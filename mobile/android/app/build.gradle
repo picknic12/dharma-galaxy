@@ -9,7 +9,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         // CI가 실행 번호로 versionCode를 올려 줍니다(설치된 앱 위에 덮어쓰기 가능)
         versionCode((System.getenv("DG_VERSION_CODE") ?: "1") as int)
-        versionName "2027.0.4"
+        versionName "2027.0.5.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
