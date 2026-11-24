@@ -92,8 +92,8 @@ function startGame(cfg){
  SKEYS.forEach(k=>{G.idx[k]=100;G.hist[k]=[100]});
  const me={name:cfg.name,isAI:false,color:'#7fd6ff',el:cfg.birth?AC.dayPillar(new Date(cfg.birth+'T12:00:00')).stemEl:null};
  G.players.push(me);(cfg.lineup||PERS.map((_,i)=>i)).slice(0,cfg.ai).forEach(k=>{const P=PERS[k];G.players.push({name:P.name,isAI:true,pers:P,color:P.color,el:P.el})});
- G.players[0].pers=Object.assign({},PERS[0],{quotes:['']});G.players.forEach(P=>Object.assign(P,{cash:G.startCash,wid:'W0',pos:0,jail:false,jt:0,free:0,out:false,dbl:0,shards:0,qdice:1,known:new Set(['W0'])}));G.players.forEach(P=>finInit(P));G.codex=new Set();G.recipes=new Set();G.monsters=[];G.mseq=0;
- G.players.forEach((P,i)=>{giveCard(i,3);givePotion(i)});
+ G.players[0].pers=Object.assign({},PERS[0],{quotes:['']});G.players.forEach(P=>Object.assign(P,{cash:G.startCash,wid:'W0',pos:0,jail:false,jt:0,free:0,out:false,dbl:0,shards:0,qdice:1,known:new Set(['W0'])}));G.players.forEach(P=>finInit(P));G.players.forEach((P,i)=>spellInit(P,i));G.codex=new Set();G.recipes=new Set();G.monsters=[];G.mseq=0;
+ G.players.forEach((P,i)=>{['core','body','power'].forEach(k=>P.cards[k][ri(0,9)]++);giveCard(i,1);givePotion(i)});
  G.phase=R.int(0,4);newDayAstro();
  V.ships.forEach(s=>s.o&&V.shipG.remove(s.o));V.ships=[];if(window.CosmicMusic)CosmicMusic.setMood(OH.PHASES[G.phase].el);
  buildWorld('W0');renderDice();for(let k=0;k<3;k++)spawnMonster('W0');renderMonsters();

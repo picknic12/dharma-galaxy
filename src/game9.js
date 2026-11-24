@@ -16,8 +16,8 @@ function design(ci,bi,pi,align){
 function canBuildRobot(p,d){const P=G.players[p];return P.cards.core[d.ci]>0&&P.cards.body[d.bi]>0&&P.cards.power[d.pi]>0&&P.cash>=d.cost&&P.robots.length<12}
 function buildRobot(p,d){if(!canBuildRobot(p,d))return false;const P=G.players[p];P.cash-=d.cost;P.cards.core[d.ci]--;P.cards.body[d.bi]--;P.cards.power[d.pi]--;P.robots.push(Object.assign({hp:100},d));if(p===0){G.recipes.add(d.recipe*2+(d.align==='빛'?0:1));sfx('merge');burst();log(`🤖 로봇 탄생! ${d.name} (${d.harmony}) 공격 ${d.atk} · 방어 ${d.def} · 생산 ${fmt(d.income)}/일`,'good')}else log(`🤖 ${P.name} 연구소에서 ${d.name} 제조`,'ai');return true}
 function robotMul(r){const day=G.astro.pillar.stemEl;return OH.saeng(day,r.el)?1.2:OH.geuk(day,r.el)?.9:1}
-function robotIncome(p){const P=G.players[p];if(!P.robots.length)return;let s=0;for(const r of P.robots)s+=r.income*robotMul(r)*(r.hp/100);s=Math.round(s*10)/10;if(s>0){P.cash=Math.round((P.cash+s)*10)/10;if(p===0&&rnd()<.35)log(`🏭 로봇 생산 수익 +${fmt(s)} (오늘 ${G.astro.pillar.hz}日의 기운 반영)`,'good')}}
-function armyPower(p){const P=G.players[p];return 20+P.robots.reduce((a,r)=>a+(r.atk+r.def)*(r.hp/100),0)+(P.buff.atk||0)+(P.buff.def||0)}
+function robotIncome(p){const P=G.players[p];if(!P.robots.length)return;let s=0;for(const r of P.robots)s+=(r.income+eqBonus(r).inc)*robotMul(r)*(r.hp/100);s=Math.round(s*10)/10;if(s>0){P.cash=Math.round((P.cash+s)*10)/10;if(p===0&&rnd()<.35)log(`🏭 로봇 생산 수익 +${fmt(s)} (오늘 ${G.astro.pillar.hz}日의 기운 반영)`,'good')}}
+function armyPower(p){const P=G.players[p];return 20+P.robots.reduce((a,r)=>{const b=eqBonus(r);return a+(r.atk+r.def+b.atk+b.def)*(r.hp/100)},0)+(P.buff.atk||0)+(P.buff.def||0)}
 function aiLab(p){const P=G.players[p];const k=P.pers.key;if(P.robots.length>=12)return;const res=aiReserve(p);let best=null;
  for(let t=0;t<30;t++){const ci=ri(0,9),bi=ri(0,9),pi=ri(0,9);if(!P.cards.core[ci]||!P.cards.body[bi]||!P.cards.power[pi])continue;const d=design(ci,bi,pi,(k==='ares'||k==='hephaestus')&&rnd()<.6?'현기':'빛');const sc=(k==='ares'?d.atk*3:0)+d.income*10-d.payback;if(!best||sc>best.sc)best=Object.assign(d,{sc})}
  if(best&&P.cash-best.cost>res*(k==='hephaestus'||k==='isis'?.6:1))buildRobot(p,best);
@@ -39,7 +39,7 @@ function drink(p,idx){const P=G.players[p];const id=P.potions[idx];if(id==null)r
   case '공포':G.monsters.forEach(x=>{if(x.wid===P.wid&&Math.abs(x.pos-P.pos)<=4)x.pos=(x.pos+ri(5,9))%W(x.wid).spaces.length});renderMonsters();t='몬스터들이 달아났습니다';break;
   case '번영':{const gs=new Set(allOwned(p).map(([w,i])=>sp(w,i).g));const mp={};gs.forEach(g=>mp[g]=Math.round(3*m));if(gs.size)shock(mp);t='보유 섹터 시세 상승';break}
   case '혼돈':{const k=pick(SKEYS);shock({[k]:ri(-15,25)});t='시장이 요동칩니다';break}
-  case '지식':P.know+=Math.round(5*m);t=`지식 +${Math.round(5*m)}`;break;
+  case '지식':{P.know+=Math.round(5*m);const s=learnSpell(p,true);t=`지식 +${Math.round(5*m)}${s?` · 마법 「${s.name}」 습득`:''}`;break}
  }
  if(p===0){log(`🧪 ${po.name}을(를) 마셨습니다 — ${t}`,'good');sfx('pop',1,2,id%30)}renderAll()}
 // ---- 몬스터 ----
@@ -57,15 +57,17 @@ function monsterTick(){G.monsters.forEach(x=>{const L=W(x.wid).spaces.length;x.p
  for(const wid in G.worlds)if(wid!=='W0'&&!G.monsters.some(x=>x.wid===wid)&&rnd()<.5)spawnMonster(wid);
  renderMonsters()}
 async function encounter(p){const P=G.players[p];const x=G.monsters.find(m=>m.wid===P.wid&&m.pos===P.pos);if(!x)return;const M=MON[x.k];
- const mp=x.lv*38*(x.hp/100),pp=armyPower(p);const chance=Math.round(pp/(pp+mp)*100);const bribe=Math.round(15+x.lv*10);
- let c;if(isHuman(p))c=await ask(`👾 <b>${esc(M.n)}</b> (Lv.${x.lv} · ${x.align==='빛'?'✨빛':'🌑현기'})이(가) 항로를 막았습니다!<br>내 로봇 전력 ${Math.round(pp)} vs 몬스터 ${Math.round(mp)} — 승리 확률 약 ${chance}%`,[{t:'⚔️ 로봇 출격',v:'fight',main:1},{t:`💸 통행세 ${fmt(bribe)} 내고 지나가기`,v:'bribe',en:()=>G.players[p].cash>=bribe}],{auto:()=>chance>=45||P.cash<bribe?'fight':'bribe'});
+ const ring=hasRing(p);if(ring){ring.c--;if(ring.c<=0)P.relics.splice(P.relics.indexOf(ring),1);log(`💍 ${who(p)} 솔로몬의 반지로 ${M.n}와(과) 대화 — 싸우지 않고 지나갑니다`,'good');chakra(p,4);return}
+ const sp_=bestBattleSpell(p);const spB=sp_?sp_.pow*(OH.saeng(G.astro.pillar.stemEl,sp_.el)?1.2:1):0;
+ const mp=x.lv*38*(x.hp/100),pp=armyPower(p)+spB;const chance=Math.round(pp/(pp+mp)*100);const bribe=Math.round(15+x.lv*10);
+ let c;if(isHuman(p))c=await ask(`👾 <b>${esc(M.n)}</b> (Lv.${x.lv} · ${x.align==='빛'?'✨빛':'🌑현기'})이(가) 항로를 막았습니다!<br>내 로봇 전력 ${Math.round(pp)} vs 몬스터 ${Math.round(mp)} — 승리 확률 약 ${chance}%${sp_?`<br>🔮 출격하면 「${esc(sp_.name)}」 자동 시전 (마나 ${sp_.mp})`:''}`,[{t:'⚔️ 로봇 출격',v:'fight',main:1},{t:`💸 통행세 ${fmt(bribe)} 내고 지나가기`,v:'bribe',en:()=>G.players[p].cash>=bribe}],{auto:()=>chance>=45||P.cash<bribe?'fight':'bribe'});
  else c=chance>=40||P.cash<bribe?'fight':'bribe';
  if(c==='bribe'){P.cash-=bribe;G.pot+=bribe;log(`💸 ${who(p)} ${M.n}에게 통행세 ${fmt(bribe)}`,'sys');return}
  // 빛/현기 상성: 반대 성향이면 서로 +15%
- let eff=pp;if(P.robots.length&&P.robots.filter(r=>r.align!==x.align).length>P.robots.length/2)eff*=1.15;
+ if(sp_)castBattle(p,sp_);let eff=pp;if(P.robots.length&&P.robots.filter(r=>r.align!==x.align).length>P.robots.length/2)eff*=1.15;
  const win=rnd()<eff/(eff+mp);P.buff.atk=0;P.buff.def=0;shake();sfx(win?'win':'hit',1);
  if(win){G.monsters.splice(G.monsters.indexOf(x),1);const cash=Math.round(30+x.lv*25);P.cash+=cash;P.know+=x.lv;if(p===0)G.stats.kills2=(G.stats.kills2||0)+1;
-  log(`⚔️ ${who(p)} ${M.n} 격파! +${fmt(cash)} · 지식 +${x.lv}`,p===0?'good':'ai');giveCard(p,1+(x.lv>3?1:0),'전리품 카드');if(rnd()<.6)givePotion(p,'전리품 포션');giveItem(p,'전리품');if(p===0)burst()}
+  log(`⚔️ ${who(p)} ${M.n} 격파! +${fmt(cash)} · 지식 +${x.lv}`,p===0?'good':'ai');giveCard(p,1+(x.lv>3?1:0),'전리품 카드');if(rnd()<.6)givePotion(p,'전리품 포션');giveItem(p,'전리품');if(x.lv>=3&&rnd()<.3)learnSpell(p);if(x.lv>=4&&rnd()<.25)giveRelic(p,M.n+' 처치');if(p===0)burst()}
  else{const loss=Math.round(P.cash*.05);P.cash-=loss;P.robots.forEach(r=>r.hp=Math.max(20,r.hp-25));log(`💥 ${who(p)} ${M.n}에게 패배 — ${fmt(loss)} 손실, 로봇 손상`,'bad')}
  renderMonsters();renderAll()}
 // 3D 몬스터 스프라이트
@@ -88,10 +90,10 @@ function renderLab(){const box=$('#lab');if(!box||!G)return;const P=G.players[0]
  <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><button class="btn sm main" id="mk" ${canBuildRobot(0,d)?'':'disabled'}>⚗️ 합성·제조</button><button class="btn sm" id="pack" ${P.cash>=25?'':'disabled'}>🃏 카드 팩 (25억)</button></div>
  <h3 style="margin-top:8px">🤖 나의 로봇 (${P.robots.length}/12) · 전력 ${Math.round(armyPower(0))}</h3>${P.robots.map(r=>`<div class="sub">${r.align==='빛'?'✨':'🌑'} ${esc(r.name)} · 공${r.atk} 방${r.def} · 생산 ${fmt(r.income)} · 내구 ${Math.round(r.hp)}%</div>`).join('')||'<div class="sub">아직 로봇이 없습니다.</div>'}
  <h3 style="margin-top:8px">🧪 포션 (${P.potions.length})</h3>${P.potions.map((id,k)=>{const po=IC.potion(id);return `<div class="asset"><span style="width:26px;height:26px">${SK.potion(po.flask,po.color)}</span><span>${esc(po.name)}<br><small class="sub">마시기: ${esc(po.uses[0].text)} · 전투: ${esc(po.uses[1].text)} · 촉매: ${esc(po.uses[2].text)}</small></span><button class="btn sm" data-d="${k}">마시기</button></div>`}).join('')||'<div class="sub">포션이 없습니다. 몬스터·보물 행성에서 얻습니다.</div>'}
- <div class="sub" style="margin-top:6px">📚 지식 ${P.know} · 도감: 아이템 ${G.codex.size}/${IC.ITEM_COUNT.toLocaleString()} <button class="btn sm" id="codex">📖 도감 검색</button></div>`;
+ <div class="sub" style="margin-top:6px">📚 지식 ${P.know} · 도감: 아이템 ${G.codex.size}/${IC.ITEM_COUNT.toLocaleString()} <button class="btn sm" id="codex">📖 도감 검색</button></div><div id="lab3"></div>`;
  ['lc','lb','lp','la'].forEach((id,k)=>$('#'+id).onchange=e=>{labSel[['ci','bi','pi','align'][k]]=k<3?+e.target.value:e.target.value;renderLab()});
  $('#mk').onclick=()=>{if(buildRobot(0,design(labSel.ci,labSel.bi,labSel.pi,labSel.align)))renderAll()};$('#pack').onclick=()=>{if(P.cash>=25){P.cash-=25;giveCard(0,1,'카드 팩');sfx('coin');renderAll()}};
- box.querySelectorAll('button[data-d]').forEach(b=>b.onclick=()=>drink(0,+b.dataset.d));$('#codex').onclick=codexModal}
+ box.querySelectorAll('button[data-d]').forEach(b=>b.onclick=()=>drink(0,+b.dataset.d));$('#codex').onclick=codexModal;renderLab3()}
 function codexModal(){modal(`<h2>📖 은하 도감</h2><div class="sub">아이템 ${IC.ITEM_COUNT.toLocaleString()}종 · 포션 ${IC.POTION_COUNT}종(용도 ${IC.POTION_COUNT*3}가지) · 로봇 설계 2,000가지. 발견한 아이템에는 ✔가 붙습니다.</div>
  <input id="cq" placeholder="검색: 예) 지니, 전설, 火, 현기, 회복…"><div style="display:flex;gap:6px;margin:8px 0"><button class="btn sm main" id="cqi">아이템</button><button class="btn sm" id="cqp">포션</button></div><div id="cres" style="max-height:52vh;overflow:auto"></div>
  <button class="btn" onclick="document.getElementById('modal').classList.remove('show')">닫기 <kbd>Esc</kbd></button>`);

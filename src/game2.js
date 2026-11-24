@@ -10,7 +10,7 @@ function newRound(){
  if(G.maxRounds&&G.round>G.maxRounds){finish('round');return}
  newDayAstro();
  if(--G.phaseLeft<=0){G.phase=(G.phase+1)%5;G.phaseLeft=3;const ph=OH.PHASES[G.phase];if(window.CosmicMusic&&!G.players[0].love)CosmicMusic.setMood(ph.el);log(`☯ 국면 전환: ${OH.HZ[ph.el]} ${ph.name} — ${ph.desc}`,'sys');sfx('start',G.phase%3);showNews(`${OH.HZ[ph.el]} ${ph.name}`,ph.desc+` (담보 이자 ${Math.round(ph.rate*100)}%)`)}
- marketTick();finTick();monsterTick();
+ marketTick();finTick();mpTick();monsterTick();
  // 양자 얽힘 수명
  G.entangle=G.entangle.filter(e=>--e.left>0);
  // 중반부 차원 상승
@@ -169,5 +169,5 @@ async function treasure(p){
  const cash=Math.round((60+ri(0,80))*(1+w.depth*.8));addCash(p,cash,`💎 ${who(p)} 보물 행성 발굴 +${fmt(cash)}`);burst();
  if(rnd()<.2+w.depth*.18)gainShard(p);
  if(rnd()<.35){P.qdice++;log(`　→ ⚛️ 관측권 +1`,'good')}
- giveCard(p,2,'보물 행성 카드');givePotion(p,'보물 행성 포션');giveItem(p,'보물 행성 유물');if(w.depth>=2&&rnd()<.4)giveItem(p,'심층 차원 유물');
+ giveCard(p,2,'보물 행성 카드');givePotion(p,'보물 행성 포션');giveItem(p,'보물 행성 유물');if(w.depth>=2&&rnd()<.4)giveItem(p,'심층 차원 유물');if(w.depth>=1&&rnd()<.12+w.depth*.06)giveRelic(p,'보물 행성');
 }

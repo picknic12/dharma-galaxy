@@ -200,9 +200,10 @@ footer{position:fixed;left:10px;bottom:4px;z-index:3;padding:0;font-size:10px;op
 .px1{opacity:.35;background-image:radial-gradient(1.5px 1.5px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 120px 80px,#cfe0ff,transparent),radial-gradient(2px 2px at 260px 160px,#ffd9f0,transparent),radial-gradient(1px 1px at 330px 40px,#fff,transparent);background-size:400px 220px}
 .px2{opacity:.5;background-image:radial-gradient(3px 3px at 60px 90px,rgba(255,230,180,.9),transparent),radial-gradient(2.5px 2.5px at 300px 210px,rgba(180,210,255,.9),transparent),radial-gradient(40px 14px at 180px 300px,rgba(200,150,255,.10),transparent);background-size:520px 380px;filter:blur(.6px)}
 #stage canvas{position:relative;z-index:0}
+@media(max-width:1700px){header>.sub{display:none}}
 </style></head><body>
 <div class="app">
-<header><h1>다르마 갤럭시 <small style="font-size:15px">다갤 · DHARMA GALAXY</small></h1><span class="sub">인간 vs AI · 2.5D 다중우주 경제 전략 RPG · v0.2 테스트판</span>
+<header><h1>다르마 갤럭시 <small style="font-size:15px">다갤 · DHARMA GALAXY</small></h1><span class="sub">인간 vs AI · 2.5D 다중우주 경제 전략 RPG · v0.3 테스트판</span>
 <div class="chips"><span class="chip" id="hRound">1일차</span><span class="chip" id="hDate"></span><span class="chip" id="hPhase"></span><span class="chip" id="hPot"></span>
 <button class="btn sm" id="bMusic" title="음악">🎵</button><button class="btn sm" id="bNext" title="다음 곡">⏭</button><button class="btn sm" id="bMed" title="명상 모드">🧘</button><button class="btn sm" id="bPause" title="수동/자동 진행 (P)">✋ 수동</button><button class="btn sm" id="bSpeed" title="속도">▶</button><button class="btn sm" id="bAuto" title="AI에게 맡기기">🤖 오토</button><button class="btn sm" id="bSound" title="소리 (M)">🔊</button><button class="btn sm" id="bRules" title="규칙 (R)">📖</button><button class="btn sm" id="bSave" title="저장 (Ctrl+S)">💾</button><button class="btn sm" id="bLoad" title="불러오기">📂</button><button class="btn sm" id="bPanel" title="패널 접기/펴기 (Q)">📋</button><button class="btn sm" id="bFull" title="전체 화면 (Z)">⛶</button><button class="btn sm" id="bNew">새 게임</button></div></header>
 <main class="wrap">
@@ -2215,7 +2216,7 @@ PERFORMANCE OF THIS SOFTWARE.
   };
 }));
 </script>
-<script>const RULES_HTML="<h4>1. 목표</h4><p>인간 지휘관 1명이 AI 함대 1~7명과 겨룹니다. ① 모든 AI를 파산시키거나, ② 정해진 항해 기간이 끝났을 때 순자산 1위이거나, ③ <b>차원 결정 💠 5개</b>를 모아 차원을 초월하면 승리합니다. 핵심은 AI의 성격과 다음 수를 읽는 것입니다.</p>\n<h4>2. 차례 진행</h4><ul><li>주사위 두 개를 굴려 항로를 따라 이동합니다. 더블이면 한 번 더, 3연속 더블이면 은하 감찰청 조사입니다.</li><li>모항성 기지를 지나면 급여 200억과 보유 섹터당 10억의 분산 보너스를 받습니다.</li><li>주인 없는 행성은 시세에 매입하고, 남의 행성에서는 통행료를 냅니다.</li></ul>\n<h4>3. 행성 자산과 시세</h4><p>8개 섹터(항성 채권·행성 광물·우주 벤처·우주 거주지·항성 에너지·은하 대기업·은하 ETF·퀀텀 코인)는 날마다 시세 지수가 움직입니다. 매입가, 통행료, 담보액, 매각가가 모두 지수를 따릅니다. 같은 우주의 같은 섹터를 모두 가지면 통행료가 2배가 되고 개발(★1~4, 🌟상장 IPO)이 가능합니다. 개발은 고르게 해야 합니다.</p>\n<h4>4. 오행 경기 사이클과 우주의 기운</h4><p>시장 국면은 木 회복기 → 火 호황기 → 土 안정기 → 金 긴축기 → 水 침체기로 3일마다 순환합니다(상생 순서). 실제 오늘 날짜부터 하루씩 흐르며, 그날의 <b>일진</b>, <b>태양 별자리</b>, <b>달의 위상</b>이 섹터 흐름과 변동성에 반영됩니다. 생년월일을 넣으면 나의 일간과 그날 일진의 관계(인성·비겁·식상·재성·관성)가 급여, 개발비, 협상, 통행료에 작은 흐름을 만듭니다. 흐름은 경향일 뿐, 선택은 언제나 지휘관의 몫입니다.</p>\n<h4>5. 다중우주·포털·블랙홀</h4><ul><li>🌀 <b>차원 포털</b>: 평행우주로 들어갑니다. 깊은 우주일수록 자산 가치와 보물이 커지고 위험도 커집니다. 🚪 귀환 게이트를 지나면 상위 우주로 돌아옵니다.</li><li>🕳️ <b>블랙홀</b>: 현금 5%를 잃고, 다른 우주로 튕겨 나가거나 웜홀이 되어 새 차원을 엽니다.</li><li>💎 <b>보물 행성</b>: 현금과 차원 결정을 얻습니다(3일마다 재생).</li><li>✴️ <b>차원 상승</b>: 게임 중반부터 포털과 블랙홀이 한 차원 더 높은 우주로 열립니다.</li></ul>\n<h4>6. 양자 메커닉</h4><ul><li>⚛️ <b>양자 주사위</b>: 관측권이 있으면 중첩된 두 결과 중 하나를 골라 관측합니다.</li><li>⚛️ <b>양자 도약</b>: 현재 우주의 원하는 행성으로 순간 이동합니다.</li><li>🔗 <b>양자 얽힘</b>: 내 자산과 상대 자산이 얽혀, 상대 자산에 통행료가 오가면 나도 50%를 받습니다.</li><li>⚛️ <b>양자 터널링</b>: 감찰청 조사 중 1/12 확률로 벽을 통과해 탈출합니다.</li></ul>\n<h4>7. 협상과 수읽기</h4><p>내 차례의 결정 시점에 AI 소유 행성을 클릭하면 인수를 제안할 수 있습니다(턴당 3회). 거절되면 AI가 역제안을 합니다. AI도 독점을 완성하려고 제안해 옵니다. 상황기의 🎯 <b>수읽기 레이더</b>가 AI의 독점 위협을 알려 줍니다. AI 성격 8종: 퀀트, 가치투자, 레버리지, 크립토 고래, 연기금, 행동주의 M&A, 모멘텀, 오행 사이클.</p>\n<h4>8. 자금과 파산</h4><p>담보 설정(시세의 50%), 담보 해제(이자는 국면에 따라 5~20%), 개발 철수(개발비의 50%), 은행 매각(시세의 80%)으로 자금을 마련합니다. 갚을 수 없으면 파산합니다. 🛰 탐사선(40억)은 2일 뒤 미확인 우주를 해독하고 다음 국면을 예측하며, 자원을 채굴해 오기도 합니다.</p>\n<h4>9. 조작</h4><p class=\"keys\"><kbd>Space</kbd>/<kbd>Enter</kbd> 주 행동 · <kbd>1</kbd>~<kbd>9</kbd> 선택지 · <kbd>B</kbd> 매입 · <kbd>P</kbd> 수동/자동 진행 · 마우스 드래그·방향키 회전 · 휠·<kbd>+</kbd>/<kbd>-</kbd> 확대 · 행성 클릭: 정보·인수 제안 · <kbd>L</kbd> 이름표 · <kbd>F</kbd> 카메라 따라가기 · <kbd>H</kbd> 내 우주로 · <kbd>M</kbd> 소리 · <kbd>R</kbd> 규칙 · <kbd>Esc</kbd> 닫기</p>\n<h4>10. 자동화와 종합 판단</h4><p>게임의 약 80%(주사위, 이동, 급여, 통행료 정산, 담보 해제·고른 개발 같은 일상 운영)는 자동으로 흐릅니다. 지휘관은 매입, 포털 진입, 협상, 인수, 양자 관측, 감찰청 대응 같은 <b>핵심 판단</b>만 내립니다. 매입 결정 창에는 현금 여력·독점 가능성·위협 차단·국면 흐름·가격 수준이 ＋/－로 펼쳐집니다. 여러 요소를 하나의 결정으로 묶는 연습, 칸트가 말한 <b>종합 판단</b>의 훈련입니다. 결정 뒤에는 💡 배움 노트가 남습니다. <kbd>P</kbd>(✋ 수동)를 누르면 매 턴 직접 정비하고 굴립니다.</p>\n<h4>11. 8대 차크라와 명상</h4><p>플레이하는 동안 지휘관의 여덟 차크라가 차례로 깨어납니다. 물라다라(첫 매입) · 스바디스타나(첫 통행료 수입) · 마니푸라(첫 독점) · <b>아나하타(자비: 가장 어려운 상대에게 손 내밀기)</b> · 비슈다(협상 성사) · 아즈나(양자 관측·탐사 예측) · 사하스라라(깊이 2 이상 차원 진입) · 소울스타(차원 결정 3개). 아나하타가 깨어나면 받는 통행료가 10% 커지고, 우주의 음악이 연결의 선율로 바뀝니다. 여덟이 모두 깨어나면 차원 결정 하나가 주어집니다. 🧘 명상 모드는 진행을 늦추고 호흡 가이드(들숨 4초·날숨 6초)를 띄웁니다.</p>\n<h4>12. 우주 음악 777곡</h4><p>명상·힐링·환타지·우주 여행·클래식 변주(파헬벨, 바흐, 베토벤, 그리그 등 퍼블릭 도메인 작품의 화성·음형 모티프) 다섯 장르, 오행 선법(木 리디안·火 믹솔리디안·土 이오니안·金 도리안·水 에올리안)으로 생성되는 777곡이 국면에 맞춰 흐릅니다. 🎵 켜기/끄기, ⏭ 다음 곡.</p>\n<h4>13. 신들의 개입과 윤리 공명</h4><p>드물게, 고대 지구의 신화 속 존재들이 조용히 개입합니다(헤르메스·락슈미·마아트·칠성신·마고·아폴론·관세음). ☯ <b>윤리 공명</b>은 인류의 도덕과 우주의 도덕이 얼마나 하나로 울리는지 보여 줍니다. 자비와 공정한 거래는 공명을 높이고, 적대적 강제 인수는 낮춥니다. 락슈미는 자비로운 이에게, 마아트의 저울은 무거운 마음에게 응답합니다.</p><h4>14. 엔딩</h4><p>게임이 끝나면 경쟁하던 함대들이 엔진을 끄고 모든 평행우주가 하나의 빛으로 겹쳐지는 장면이 펼쳐집니다. 전쟁에서 화합으로, 전 우주의 통합으로 향하는 이 항해의 마지막은 승패보다 깨어남을 비춥니다.</p><h4>15. 일곱 AI 문명과 27가지 엔딩</h4><p>AI 경쟁자: ♟ 아테나(전략가) · ☿ 헤르메스(금융투자가) · ⚒ 헤파이스토스(공학자) · ⚔ 아레스(군사전략가) · ✧ 이시스(연금술사) · ☀ 소피아(철학자) · ◷ 크로노스(종합전략가). AI는 플레이어가 볼 수 없는 정보를 부당하게 쓰지 않습니다. 끝에 이르면 어떤 가치를 우선했는지에 따라 9계열(금융경제·과학기술·군사전략·연금술·지식·외교·탐험·정신문화·통합) × 3단계(여명·개화·완성) = 27가지 엔딩 중 하나가 펼쳐집니다. 7일마다 🔮 <b>우주 예언자</b>가 나타나 세 갈래 별길을 보여 줍니다. 어느 길도 정해진 운명은 아닙니다.</p>\n<h3>16. v0.2 — 은하 중앙은행 · 금융</h3><p>🏦 금융 탭(<kbd>5</kbd>)에서 <b>예금</b>(국면별 일 이자), <b>신용대출</b>(순자산의 15% + 300억 한도), <b>은하 채권</b>(쇠/金 국면에 강함, 1.5% 표면이자), <b>은하 종합주</b>(9개 섹터 평균 지수)를 운용합니다. 자금이 모자라면 예금 → 주식 → 채권 → 대출 순으로 자동 정리됩니다. 금리는 오행 국면을 따릅니다: 金 2.2% · 火 1.6% · 木 1.2% · 土 1.0% · 水 0.8%.</p>\n<h3>17. v0.2 — AI 연구소 · 연금술 로봇</h3><p>🤖 연구소 탭(<kbd>4</kbd>)에서 <b>지능 코어 · 기체 · 동력</b> 카드 3장을 합성해 로봇을 만듭니다. 10×10×10 = 1,000가지 조합에 <b>빛(光)</b>/<b>현기(玄)</b> 성향을 더해 2,000가지 설계가 나옵니다. 세 카드의 오행이 상생이면 능력이 오르고, 상극이면 내려갑니다. 빛 로봇은 생산 +15%, 현기 로봇은 공격 +20%. 로봇은 매일 수익을 내며, 그날 일진의 천간이 로봇의 오행을 생(生)하면 +20%, 극(剋)하면 −10%입니다. 카드는 급여·보물 행성·뉴스·몬스터 전리품·카드 팩(25억)으로 얻습니다.</p>\n<h3>18. v0.2 — 몬스터 · 포션 · 아이템 도감</h3><p>👾 인플레 슬라임, 숏셀러 늑대, 부채 골렘, 뱀파이어 대부업자, 거품 드래곤, 블랙스완 등 12종의 몬스터가 항로를 떠돕니다. 같은 칸에 멈추면 <b>로봇 출격</b>(전력 비교 확률 전투) 또는 <b>통행세</b>를 고릅니다. 상대와 반대 성향(빛↔현기) 로봇이 많으면 +15%. 이기면 현금·지식·카드·포션·아이템(희귀도별 빛기둥)을 얻습니다.<br>🧪 포션 375종(15정수 × 5원소 × 5등급, 각 3가지 용도 = 1,125가지 용도): 생명·분노·강철·질풍·화염·독·행운·황금·시간·투명·예지·공포·번영·혼돈·지식.<br>📖 아이템 12,000종 도감은 연구소의 「도감 검색」에서 이름·원소·성향·효과로 찾을 수 있습니다.</p>\n<h3>19. v0.2 — 화면과 저장</h3><p>화면은 우주 보드가 <b>스크린을 꽉 채우고</b>, 패널은 오른쪽에 떠 있습니다. <kbd>Q</kbd> 패널 접기/펴기 · <kbd>Z</kbd> 전체 화면 · <kbd>V</kbd> 디아블로식 아이소메트릭 시점 · <kbd>Ctrl+S</kbd> 저장 · 📂 불러오기(이 브라우저에 저장).</p>";</script>
+<script>const RULES_HTML="<h4>1. 목표</h4><p>인간 지휘관 1명이 AI 함대 1~7명과 겨룹니다. ① 모든 AI를 파산시키거나, ② 정해진 항해 기간이 끝났을 때 순자산 1위이거나, ③ <b>차원 결정 💠 5개</b>를 모아 차원을 초월하면 승리합니다. 핵심은 AI의 성격과 다음 수를 읽는 것입니다.</p>\n<h4>2. 차례 진행</h4><ul><li>주사위 두 개를 굴려 항로를 따라 이동합니다. 더블이면 한 번 더, 3연속 더블이면 은하 감찰청 조사입니다.</li><li>모항성 기지를 지나면 급여 200억과 보유 섹터당 10억의 분산 보너스를 받습니다.</li><li>주인 없는 행성은 시세에 매입하고, 남의 행성에서는 통행료를 냅니다.</li></ul>\n<h4>3. 행성 자산과 시세</h4><p>8개 섹터(항성 채권·행성 광물·우주 벤처·우주 거주지·항성 에너지·은하 대기업·은하 ETF·퀀텀 코인)는 날마다 시세 지수가 움직입니다. 매입가, 통행료, 담보액, 매각가가 모두 지수를 따릅니다. 같은 우주의 같은 섹터를 모두 가지면 통행료가 2배가 되고 개발(★1~4, 🌟상장 IPO)이 가능합니다. 개발은 고르게 해야 합니다.</p>\n<h4>4. 오행 경기 사이클과 우주의 기운</h4><p>시장 국면은 木 회복기 → 火 호황기 → 土 안정기 → 金 긴축기 → 水 침체기로 3일마다 순환합니다(상생 순서). 실제 오늘 날짜부터 하루씩 흐르며, 그날의 <b>일진</b>, <b>태양 별자리</b>, <b>달의 위상</b>이 섹터 흐름과 변동성에 반영됩니다. 생년월일을 넣으면 나의 일간과 그날 일진의 관계(인성·비겁·식상·재성·관성)가 급여, 개발비, 협상, 통행료에 작은 흐름을 만듭니다. 흐름은 경향일 뿐, 선택은 언제나 지휘관의 몫입니다.</p>\n<h4>5. 다중우주·포털·블랙홀</h4><ul><li>🌀 <b>차원 포털</b>: 평행우주로 들어갑니다. 깊은 우주일수록 자산 가치와 보물이 커지고 위험도 커집니다. 🚪 귀환 게이트를 지나면 상위 우주로 돌아옵니다.</li><li>🕳️ <b>블랙홀</b>: 현금 5%를 잃고, 다른 우주로 튕겨 나가거나 웜홀이 되어 새 차원을 엽니다.</li><li>💎 <b>보물 행성</b>: 현금과 차원 결정을 얻습니다(3일마다 재생).</li><li>✴️ <b>차원 상승</b>: 게임 중반부터 포털과 블랙홀이 한 차원 더 높은 우주로 열립니다.</li></ul>\n<h4>6. 양자 메커닉</h4><ul><li>⚛️ <b>양자 주사위</b>: 관측권이 있으면 중첩된 두 결과 중 하나를 골라 관측합니다.</li><li>⚛️ <b>양자 도약</b>: 현재 우주의 원하는 행성으로 순간 이동합니다.</li><li>🔗 <b>양자 얽힘</b>: 내 자산과 상대 자산이 얽혀, 상대 자산에 통행료가 오가면 나도 50%를 받습니다.</li><li>⚛️ <b>양자 터널링</b>: 감찰청 조사 중 1/12 확률로 벽을 통과해 탈출합니다.</li></ul>\n<h4>7. 협상과 수읽기</h4><p>내 차례의 결정 시점에 AI 소유 행성을 클릭하면 인수를 제안할 수 있습니다(턴당 3회). 거절되면 AI가 역제안을 합니다. AI도 독점을 완성하려고 제안해 옵니다. 상황기의 🎯 <b>수읽기 레이더</b>가 AI의 독점 위협을 알려 줍니다. AI 성격 8종: 퀀트, 가치투자, 레버리지, 크립토 고래, 연기금, 행동주의 M&A, 모멘텀, 오행 사이클.</p>\n<h4>8. 자금과 파산</h4><p>담보 설정(시세의 50%), 담보 해제(이자는 국면에 따라 5~20%), 개발 철수(개발비의 50%), 은행 매각(시세의 80%)으로 자금을 마련합니다. 갚을 수 없으면 파산합니다. 🛰 탐사선(40억)은 2일 뒤 미확인 우주를 해독하고 다음 국면을 예측하며, 자원을 채굴해 오기도 합니다.</p>\n<h4>9. 조작</h4><p class=\"keys\"><kbd>Space</kbd>/<kbd>Enter</kbd> 주 행동 · <kbd>1</kbd>~<kbd>9</kbd> 선택지 · <kbd>B</kbd> 매입 · <kbd>P</kbd> 수동/자동 진행 · 마우스 드래그·방향키 회전 · 휠·<kbd>+</kbd>/<kbd>-</kbd> 확대 · 행성 클릭: 정보·인수 제안 · <kbd>L</kbd> 이름표 · <kbd>F</kbd> 카메라 따라가기 · <kbd>H</kbd> 내 우주로 · <kbd>M</kbd> 소리 · <kbd>R</kbd> 규칙 · <kbd>Esc</kbd> 닫기</p>\n<h4>10. 자동화와 종합 판단</h4><p>게임의 약 80%(주사위, 이동, 급여, 통행료 정산, 담보 해제·고른 개발 같은 일상 운영)는 자동으로 흐릅니다. 지휘관은 매입, 포털 진입, 협상, 인수, 양자 관측, 감찰청 대응 같은 <b>핵심 판단</b>만 내립니다. 매입 결정 창에는 현금 여력·독점 가능성·위협 차단·국면 흐름·가격 수준이 ＋/－로 펼쳐집니다. 여러 요소를 하나의 결정으로 묶는 연습, 칸트가 말한 <b>종합 판단</b>의 훈련입니다. 결정 뒤에는 💡 배움 노트가 남습니다. <kbd>P</kbd>(✋ 수동)를 누르면 매 턴 직접 정비하고 굴립니다.</p>\n<h4>11. 8대 차크라와 명상</h4><p>플레이하는 동안 지휘관의 여덟 차크라가 차례로 깨어납니다. 물라다라(첫 매입) · 스바디스타나(첫 통행료 수입) · 마니푸라(첫 독점) · <b>아나하타(자비: 가장 어려운 상대에게 손 내밀기)</b> · 비슈다(협상 성사) · 아즈나(양자 관측·탐사 예측) · 사하스라라(깊이 2 이상 차원 진입) · 소울스타(차원 결정 3개). 아나하타가 깨어나면 받는 통행료가 10% 커지고, 우주의 음악이 연결의 선율로 바뀝니다. 여덟이 모두 깨어나면 차원 결정 하나가 주어집니다. 🧘 명상 모드는 진행을 늦추고 호흡 가이드(들숨 4초·날숨 6초)를 띄웁니다.</p>\n<h4>12. 우주 음악 777곡</h4><p>명상·힐링·환타지·우주 여행·클래식 변주(파헬벨, 바흐, 베토벤, 그리그 등 퍼블릭 도메인 작품의 화성·음형 모티프) 다섯 장르, 오행 선법(木 리디안·火 믹솔리디안·土 이오니안·金 도리안·水 에올리안)으로 생성되는 777곡이 국면에 맞춰 흐릅니다. 🎵 켜기/끄기, ⏭ 다음 곡.</p>\n<h4>13. 신들의 개입과 윤리 공명</h4><p>드물게, 고대 지구의 신화 속 존재들이 조용히 개입합니다(헤르메스·락슈미·마아트·칠성신·마고·아폴론·관세음). ☯ <b>윤리 공명</b>은 인류의 도덕과 우주의 도덕이 얼마나 하나로 울리는지 보여 줍니다. 자비와 공정한 거래는 공명을 높이고, 적대적 강제 인수는 낮춥니다. 락슈미는 자비로운 이에게, 마아트의 저울은 무거운 마음에게 응답합니다.</p><h4>14. 엔딩</h4><p>게임이 끝나면 경쟁하던 함대들이 엔진을 끄고 모든 평행우주가 하나의 빛으로 겹쳐지는 장면이 펼쳐집니다. 전쟁에서 화합으로, 전 우주의 통합으로 향하는 이 항해의 마지막은 승패보다 깨어남을 비춥니다.</p><h4>15. 일곱 AI 문명과 27가지 엔딩</h4><p>AI 경쟁자: ♟ 아테나(전략가) · ☿ 헤르메스(금융투자가) · ⚒ 헤파이스토스(공학자) · ⚔ 아레스(군사전략가) · ✧ 이시스(연금술사) · ☀ 소피아(철학자) · ◷ 크로노스(종합전략가). AI는 플레이어가 볼 수 없는 정보를 부당하게 쓰지 않습니다. 끝에 이르면 어떤 가치를 우선했는지에 따라 9계열(금융경제·과학기술·군사전략·연금술·지식·외교·탐험·정신문화·통합) × 3단계(여명·개화·완성) = 27가지 엔딩 중 하나가 펼쳐집니다. 7일마다 🔮 <b>우주 예언자</b>가 나타나 세 갈래 별길을 보여 줍니다. 어느 길도 정해진 운명은 아닙니다.</p>\n<h3>16. v0.2 — 은하 중앙은행 · 금융</h3><p>🏦 금융 탭(<kbd>5</kbd>)에서 <b>예금</b>(국면별 일 이자), <b>신용대출</b>(순자산의 15% + 300억 한도), <b>은하 채권</b>(쇠/金 국면에 강함, 1.5% 표면이자), <b>은하 종합주</b>(9개 섹터 평균 지수)를 운용합니다. 자금이 모자라면 예금 → 주식 → 채권 → 대출 순으로 자동 정리됩니다. 금리는 오행 국면을 따릅니다: 金 2.2% · 火 1.6% · 木 1.2% · 土 1.0% · 水 0.8%.</p>\n<h3>17. v0.2 — AI 연구소 · 연금술 로봇</h3><p>🤖 연구소 탭(<kbd>4</kbd>)에서 <b>지능 코어 · 기체 · 동력</b> 카드 3장을 합성해 로봇을 만듭니다. 10×10×10 = 1,000가지 조합에 <b>빛(光)</b>/<b>현기(玄)</b> 성향을 더해 2,000가지 설계가 나옵니다. 세 카드의 오행이 상생이면 능력이 오르고, 상극이면 내려갑니다. 빛 로봇은 생산 +15%, 현기 로봇은 공격 +20%. 로봇은 매일 수익을 내며, 그날 일진의 천간이 로봇의 오행을 생(生)하면 +20%, 극(剋)하면 −10%입니다. 카드는 급여·보물 행성·뉴스·몬스터 전리품·카드 팩(25억)으로 얻습니다.</p>\n<h3>18. v0.2 — 몬스터 · 포션 · 아이템 도감</h3><p>👾 인플레 슬라임, 숏셀러 늑대, 부채 골렘, 뱀파이어 대부업자, 거품 드래곤, 블랙스완 등 12종의 몬스터가 항로를 떠돕니다. 같은 칸에 멈추면 <b>로봇 출격</b>(전력 비교 확률 전투) 또는 <b>통행세</b>를 고릅니다. 상대와 반대 성향(빛↔현기) 로봇이 많으면 +15%. 이기면 현금·지식·카드·포션·아이템(희귀도별 빛기둥)을 얻습니다.<br>🧪 포션 375종(15정수 × 5원소 × 5등급, 각 3가지 용도 = 1,125가지 용도): 생명·분노·강철·질풍·화염·독·행운·황금·시간·투명·예지·공포·번영·혼돈·지식.<br>📖 아이템 12,000종 도감은 연구소의 「도감 검색」에서 이름·원소·성향·효과로 찾을 수 있습니다.</p>\n<h3>19. v0.2 — 화면과 저장</h3><p>화면은 우주 보드가 <b>스크린을 꽉 채우고</b>, 패널은 오른쪽에 떠 있습니다. <kbd>Q</kbd> 패널 접기/펴기 · <kbd>Z</kbd> 전체 화면 · <kbd>V</kbd> 디아블로식 아이소메트릭 시점 · <kbd>Ctrl+S</kbd> 저장 · 📂 불러오기(이 브라우저에 저장).</p><h3>20. v0.3 — 마법 100종</h3><p>마법은 원형 20가지 × 오행 5 = 100종입니다(예: 적염의 유성우, 흑수의 얼음 감옥, 청목의 치유의 빛, 백금의 금화의 비, 황토의 시간 정지). 마나는 매일 4씩 차고, 최대치는 차크라와 지식이 쌓일수록 커집니다. <b>전투 마법</b>은 몬스터와 싸울 때 가장 강한 것이 자동으로 시전되고, <b>회복·경제·이동·보조 마법</b>은 연구소 탭의 마법서에서 직접 시전합니다. 그날 일진의 천간이 마법의 오행을 생(生)하면 위력 +20%. 마법은 시작할 때 3개, 지식 포션·강한 몬스터·로봇 지식 각인으로 더 배웁니다.</p>\n<h3>21. v0.3 — 로봇 변신과 장비</h3><p>연구소의 「로봇 정비」에서 포션을 로봇에게 먹이면 15가지 형태로 변신합니다: 광전사 모드(공격), 요새 모드(방어), 제트 모드(생산), 쌍격 화염포, 스텔스 비행, 시간 재생(매일 수리), 행운 복제(쌍둥이 로봇), 혼돈 변이, 지식 각인(마법 습득) 등. 무기·방어구·장신구·로봇 부품 아이템은 로봇의 세 칸(무기/방어/보조)에 장착해 공격·방어·생산을 올립니다.</p>\n<h3>22. v0.3 — 전설 유물 12종</h3><p>깊은 차원의 보물 행성과 강한 몬스터에게서 고대 지구의 신화·민담 유물이 나옵니다: 지니의 호리병(소원 3번), 알라딘의 램프, 여의주, 판도라의 상자, 솔로몬의 반지(몬스터와 대화), 성배, 삼족오의 깃털(이동 칸 지정), 여의봉, 아틀란티스 수정, 천부인, 이그드라실의 씨앗(새 우주), 칠지도. 유물마다 쓸 수 있는 횟수가 정해져 있습니다.</p>";</script>
 <script>/* ============================================================
  * 다르마 갤럭시(다갤) — 인간 vs AI 다중우주 경제 전략 RPG
  * 저자: 피크닉 신영호 · 임지혜 (이스턴드래곤 출판사)
@@ -2369,7 +2370,7 @@ function newRound(){
  if(G.maxRounds&&G.round>G.maxRounds){finish('round');return}
  newDayAstro();
  if(--G.phaseLeft<=0){G.phase=(G.phase+1)%5;G.phaseLeft=3;const ph=OH.PHASES[G.phase];if(window.CosmicMusic&&!G.players[0].love)CosmicMusic.setMood(ph.el);log(`☯ 국면 전환: ${OH.HZ[ph.el]} ${ph.name} — ${ph.desc}`,'sys');sfx('start',G.phase%3);showNews(`${OH.HZ[ph.el]} ${ph.name}`,ph.desc+` (담보 이자 ${Math.round(ph.rate*100)}%)`)}
- marketTick();finTick();monsterTick();
+ marketTick();finTick();mpTick();monsterTick();
  // 양자 얽힘 수명
  G.entangle=G.entangle.filter(e=>--e.left>0);
  // 중반부 차원 상승
@@ -2528,7 +2529,7 @@ async function treasure(p){
  const cash=Math.round((60+ri(0,80))*(1+w.depth*.8));addCash(p,cash,`💎 ${who(p)} 보물 행성 발굴 +${fmt(cash)}`);burst();
  if(rnd()<.2+w.depth*.18)gainShard(p);
  if(rnd()<.35){P.qdice++;log(`　→ ⚛️ 관측권 +1`,'good')}
- giveCard(p,2,'보물 행성 카드');givePotion(p,'보물 행성 포션');giveItem(p,'보물 행성 유물');if(w.depth>=2&&rnd()<.4)giveItem(p,'심층 차원 유물');
+ giveCard(p,2,'보물 행성 카드');givePotion(p,'보물 행성 포션');giveItem(p,'보물 행성 유물');if(w.depth>=2&&rnd()<.4)giveItem(p,'심층 차원 유물');if(w.depth>=1&&rnd()<.12+w.depth*.06)giveRelic(p,'보물 행성');
 }
 
 // ---------- AI 두뇌 ----------
@@ -2561,7 +2562,7 @@ function aiAsk(seller,buyer,wid,i){ // 판매 희망가
  return Math.round(mkt(wid,i)*need);
 }
 async function aiManage(p){
- const P=G.players[p];if(P.out)return;const msgs=[];aiFinance(p);aiLab(p);if(P.potions.length>3&&rnd()<.3)drink(p,0);
+ const P=G.players[p];if(P.out)return;const msgs=[];aiFinance(p);aiLab(p);aiGear(p);aiSpells(p);await aiRelics(p);if(P.potions.length>3&&rnd()<.3)drink(p,0);
  // 담보 해제
  for(const [w,i] of allOwned(p).filter(([w,i])=>own(w,i).m).sort((a,b)=>mkt(...b)-mkt(...a))){if(P.cash-unmortCost(w,i)>=aiReserve(p)*1.6&&unmort(p,w,i))msgs.push(`담보 해제 ${sp(w,i).name}`)}
  // 개발
@@ -2592,7 +2593,7 @@ async function aiDeals(p){
 function aiJail(p){const P=G.players[p];if(P.free>0)return 'card';const un=Object.values(G.worlds).reduce((a,w)=>a+w.own.filter(o=>o&&o.o<0).length,0);if(un>=6&&P.cash>aiReserve(p)*.8)return 'pay';if(P.pers.reserve>=1.4&&P.cash>400)return 'pay';return 'roll'}
 
 // ---------- 사람의 자동 관리 (80% 자동화) ----------
-function humanAutoManage(){const P=G.players[0];const save=P.pers;P.pers=PERS[0];const res=Math.max(260,aiReserve(0)*1.2);const msgs=[];if(G.autoHuman){aiFinance(0);aiLab(0)}
+function humanAutoManage(){const P=G.players[0];const save=P.pers;P.pers=PERS[0];const res=Math.max(260,aiReserve(0)*1.2);const msgs=[];if(G.autoHuman){aiFinance(0);aiLab(0);aiGear(0);aiSpells(0)}
  for(const [w,i] of allOwned(0).filter(([w,i])=>own(w,i).m)){if(P.cash-unmortCost(w,i)>=res*1.4&&unmort(0,w,i))msgs.push('담보 해제 '+sp(w,i).name)}
  let n=0;for(let k=0;k<20;k++){let best=null,bs=-1;for(const [w,i] of allOwned(0)){if(!canBuild(0,w,i))continue;const c=buildCost(0,w,i);if(P.cash-c<res)continue;const s=sp(w,i);const g=(s.rent[own(w,i).lv+1]-s.rent[own(w,i).lv])/c;if(g>bs){bs=g;best=[w,i]}}if(!best)break;doBuild(0,...best);n++}
  if(n)msgs.push(`개발 ${n}단계`);P.pers=save;if(msgs.length){log('🤖 자동 관리: '+msgs.join(' · '),'good');renderAll()}}
@@ -2655,9 +2656,9 @@ async function turn(p){
   if(isHuman(p)){if(G.manual||G.pauseReq){G.pauseReq=false;await ask(`🚀 <b>${esc(P.name)}</b>님의 차례입니다. 자산을 정비한 뒤 주사위를 굴리세요.${P.qdice?` (⚛️ 관측권 ${P.qdice})`:''}`,[{t:'🎲 주사위 굴리기',v:1,main:1}],{manage:true})}else{if(G.autoManage)humanAutoManage();G.status=`🚀 ${P.name}님의 차례 — 자동 항해 중 (⏸ 일시정지로 직접 정비)`;renderAct();await sleep(650)}}
   const d=await showRoll(p);
   if(d[0]===d[1]){P.dbl++;if(P.dbl>=3){log(`🎲 ${who(p)} 3연속 더블 — 과열 거래 혐의!`,'bad');goJail(p);break}again=true;log(`🎲 ${who(p)} 더블! 한 번 더`,'sys')}
-  let mv=d[0]+d[1];if(P.buff&&P.buff.move){mv+=P.buff.move;P.buff.move=0}
+  let mv=d[0]+d[1];if(P.fixMove){mv=P.fixMove;P.fixMove=0;log(`☀️ 삼족오의 비행 — ${mv}칸`,'sys')}if(P.buff&&P.buff.move){mv+=P.buff.move;P.buff.move=0}
   await moveBy(p,mv);await encounter(p);if(P.out||G.over)break;await land(p,d[0]+d[1]);
-  if(P.jail||P.out)again=false;
+  if(P.jail||P.out)again=false;else if(P.extraTurn){P.extraTurn=0;again=true;log(`⏳ ${who(p)} 시간 정지 — 한 번 더!`,'sys')}
   if(P.isAI&&!P.out&&!G.over)await aiManage(p);
  }
  P.dbl=0;
@@ -2921,8 +2922,8 @@ function startGame(cfg){
  SKEYS.forEach(k=>{G.idx[k]=100;G.hist[k]=[100]});
  const me={name:cfg.name,isAI:false,color:'#7fd6ff',el:cfg.birth?AC.dayPillar(new Date(cfg.birth+'T12:00:00')).stemEl:null};
  G.players.push(me);(cfg.lineup||PERS.map((_,i)=>i)).slice(0,cfg.ai).forEach(k=>{const P=PERS[k];G.players.push({name:P.name,isAI:true,pers:P,color:P.color,el:P.el})});
- G.players[0].pers=Object.assign({},PERS[0],{quotes:['']});G.players.forEach(P=>Object.assign(P,{cash:G.startCash,wid:'W0',pos:0,jail:false,jt:0,free:0,out:false,dbl:0,shards:0,qdice:1,known:new Set(['W0'])}));G.players.forEach(P=>finInit(P));G.codex=new Set();G.recipes=new Set();G.monsters=[];G.mseq=0;
- G.players.forEach((P,i)=>{giveCard(i,3);givePotion(i)});
+ G.players[0].pers=Object.assign({},PERS[0],{quotes:['']});G.players.forEach(P=>Object.assign(P,{cash:G.startCash,wid:'W0',pos:0,jail:false,jt:0,free:0,out:false,dbl:0,shards:0,qdice:1,known:new Set(['W0'])}));G.players.forEach(P=>finInit(P));G.players.forEach((P,i)=>spellInit(P,i));G.codex=new Set();G.recipes=new Set();G.monsters=[];G.mseq=0;
+ G.players.forEach((P,i)=>{['core','body','power'].forEach(k=>P.cards[k][ri(0,9)]++);giveCard(i,1);givePotion(i)});
  G.phase=R.int(0,4);newDayAstro();
  V.ships.forEach(s=>s.o&&V.shipG.remove(s.o));V.ships=[];if(window.CosmicMusic)CosmicMusic.setMood(OH.PHASES[G.phase].el);
  buildWorld('W0');renderDice();for(let k=0;k<3;k++)spawnMonster('W0');renderMonsters();
@@ -3108,8 +3109,8 @@ function design(ci,bi,pi,align){
 function canBuildRobot(p,d){const P=G.players[p];return P.cards.core[d.ci]>0&&P.cards.body[d.bi]>0&&P.cards.power[d.pi]>0&&P.cash>=d.cost&&P.robots.length<12}
 function buildRobot(p,d){if(!canBuildRobot(p,d))return false;const P=G.players[p];P.cash-=d.cost;P.cards.core[d.ci]--;P.cards.body[d.bi]--;P.cards.power[d.pi]--;P.robots.push(Object.assign({hp:100},d));if(p===0){G.recipes.add(d.recipe*2+(d.align==='빛'?0:1));sfx('merge');burst();log(`🤖 로봇 탄생! ${d.name} (${d.harmony}) 공격 ${d.atk} · 방어 ${d.def} · 생산 ${fmt(d.income)}/일`,'good')}else log(`🤖 ${P.name} 연구소에서 ${d.name} 제조`,'ai');return true}
 function robotMul(r){const day=G.astro.pillar.stemEl;return OH.saeng(day,r.el)?1.2:OH.geuk(day,r.el)?.9:1}
-function robotIncome(p){const P=G.players[p];if(!P.robots.length)return;let s=0;for(const r of P.robots)s+=r.income*robotMul(r)*(r.hp/100);s=Math.round(s*10)/10;if(s>0){P.cash=Math.round((P.cash+s)*10)/10;if(p===0&&rnd()<.35)log(`🏭 로봇 생산 수익 +${fmt(s)} (오늘 ${G.astro.pillar.hz}日의 기운 반영)`,'good')}}
-function armyPower(p){const P=G.players[p];return 20+P.robots.reduce((a,r)=>a+(r.atk+r.def)*(r.hp/100),0)+(P.buff.atk||0)+(P.buff.def||0)}
+function robotIncome(p){const P=G.players[p];if(!P.robots.length)return;let s=0;for(const r of P.robots)s+=(r.income+eqBonus(r).inc)*robotMul(r)*(r.hp/100);s=Math.round(s*10)/10;if(s>0){P.cash=Math.round((P.cash+s)*10)/10;if(p===0&&rnd()<.35)log(`🏭 로봇 생산 수익 +${fmt(s)} (오늘 ${G.astro.pillar.hz}日의 기운 반영)`,'good')}}
+function armyPower(p){const P=G.players[p];return 20+P.robots.reduce((a,r)=>{const b=eqBonus(r);return a+(r.atk+r.def+b.atk+b.def)*(r.hp/100)},0)+(P.buff.atk||0)+(P.buff.def||0)}
 function aiLab(p){const P=G.players[p];const k=P.pers.key;if(P.robots.length>=12)return;const res=aiReserve(p);let best=null;
  for(let t=0;t<30;t++){const ci=ri(0,9),bi=ri(0,9),pi=ri(0,9);if(!P.cards.core[ci]||!P.cards.body[bi]||!P.cards.power[pi])continue;const d=design(ci,bi,pi,(k==='ares'||k==='hephaestus')&&rnd()<.6?'현기':'빛');const sc=(k==='ares'?d.atk*3:0)+d.income*10-d.payback;if(!best||sc>best.sc)best=Object.assign(d,{sc})}
  if(best&&P.cash-best.cost>res*(k==='hephaestus'||k==='isis'?.6:1))buildRobot(p,best);
@@ -3131,7 +3132,7 @@ function drink(p,idx){const P=G.players[p];const id=P.potions[idx];if(id==null)r
   case '공포':G.monsters.forEach(x=>{if(x.wid===P.wid&&Math.abs(x.pos-P.pos)<=4)x.pos=(x.pos+ri(5,9))%W(x.wid).spaces.length});renderMonsters();t='몬스터들이 달아났습니다';break;
   case '번영':{const gs=new Set(allOwned(p).map(([w,i])=>sp(w,i).g));const mp={};gs.forEach(g=>mp[g]=Math.round(3*m));if(gs.size)shock(mp);t='보유 섹터 시세 상승';break}
   case '혼돈':{const k=pick(SKEYS);shock({[k]:ri(-15,25)});t='시장이 요동칩니다';break}
-  case '지식':P.know+=Math.round(5*m);t=`지식 +${Math.round(5*m)}`;break;
+  case '지식':{P.know+=Math.round(5*m);const s=learnSpell(p,true);t=`지식 +${Math.round(5*m)}${s?` · 마법 「${s.name}」 습득`:''}`;break}
  }
  if(p===0){log(`🧪 ${po.name}을(를) 마셨습니다 — ${t}`,'good');sfx('pop',1,2,id%30)}renderAll()}
 // ---- 몬스터 ----
@@ -3149,15 +3150,17 @@ function monsterTick(){G.monsters.forEach(x=>{const L=W(x.wid).spaces.length;x.p
  for(const wid in G.worlds)if(wid!=='W0'&&!G.monsters.some(x=>x.wid===wid)&&rnd()<.5)spawnMonster(wid);
  renderMonsters()}
 async function encounter(p){const P=G.players[p];const x=G.monsters.find(m=>m.wid===P.wid&&m.pos===P.pos);if(!x)return;const M=MON[x.k];
- const mp=x.lv*38*(x.hp/100),pp=armyPower(p);const chance=Math.round(pp/(pp+mp)*100);const bribe=Math.round(15+x.lv*10);
- let c;if(isHuman(p))c=await ask(`👾 <b>${esc(M.n)}</b> (Lv.${x.lv} · ${x.align==='빛'?'✨빛':'🌑현기'})이(가) 항로를 막았습니다!<br>내 로봇 전력 ${Math.round(pp)} vs 몬스터 ${Math.round(mp)} — 승리 확률 약 ${chance}%`,[{t:'⚔️ 로봇 출격',v:'fight',main:1},{t:`💸 통행세 ${fmt(bribe)} 내고 지나가기`,v:'bribe',en:()=>G.players[p].cash>=bribe}],{auto:()=>chance>=45||P.cash<bribe?'fight':'bribe'});
+ const ring=hasRing(p);if(ring){ring.c--;if(ring.c<=0)P.relics.splice(P.relics.indexOf(ring),1);log(`💍 ${who(p)} 솔로몬의 반지로 ${M.n}와(과) 대화 — 싸우지 않고 지나갑니다`,'good');chakra(p,4);return}
+ const sp_=bestBattleSpell(p);const spB=sp_?sp_.pow*(OH.saeng(G.astro.pillar.stemEl,sp_.el)?1.2:1):0;
+ const mp=x.lv*38*(x.hp/100),pp=armyPower(p)+spB;const chance=Math.round(pp/(pp+mp)*100);const bribe=Math.round(15+x.lv*10);
+ let c;if(isHuman(p))c=await ask(`👾 <b>${esc(M.n)}</b> (Lv.${x.lv} · ${x.align==='빛'?'✨빛':'🌑현기'})이(가) 항로를 막았습니다!<br>내 로봇 전력 ${Math.round(pp)} vs 몬스터 ${Math.round(mp)} — 승리 확률 약 ${chance}%${sp_?`<br>🔮 출격하면 「${esc(sp_.name)}」 자동 시전 (마나 ${sp_.mp})`:''}`,[{t:'⚔️ 로봇 출격',v:'fight',main:1},{t:`💸 통행세 ${fmt(bribe)} 내고 지나가기`,v:'bribe',en:()=>G.players[p].cash>=bribe}],{auto:()=>chance>=45||P.cash<bribe?'fight':'bribe'});
  else c=chance>=40||P.cash<bribe?'fight':'bribe';
  if(c==='bribe'){P.cash-=bribe;G.pot+=bribe;log(`💸 ${who(p)} ${M.n}에게 통행세 ${fmt(bribe)}`,'sys');return}
  // 빛/현기 상성: 반대 성향이면 서로 +15%
- let eff=pp;if(P.robots.length&&P.robots.filter(r=>r.align!==x.align).length>P.robots.length/2)eff*=1.15;
+ if(sp_)castBattle(p,sp_);let eff=pp;if(P.robots.length&&P.robots.filter(r=>r.align!==x.align).length>P.robots.length/2)eff*=1.15;
  const win=rnd()<eff/(eff+mp);P.buff.atk=0;P.buff.def=0;shake();sfx(win?'win':'hit',1);
  if(win){G.monsters.splice(G.monsters.indexOf(x),1);const cash=Math.round(30+x.lv*25);P.cash+=cash;P.know+=x.lv;if(p===0)G.stats.kills2=(G.stats.kills2||0)+1;
-  log(`⚔️ ${who(p)} ${M.n} 격파! +${fmt(cash)} · 지식 +${x.lv}`,p===0?'good':'ai');giveCard(p,1+(x.lv>3?1:0),'전리품 카드');if(rnd()<.6)givePotion(p,'전리품 포션');giveItem(p,'전리품');if(p===0)burst()}
+  log(`⚔️ ${who(p)} ${M.n} 격파! +${fmt(cash)} · 지식 +${x.lv}`,p===0?'good':'ai');giveCard(p,1+(x.lv>3?1:0),'전리품 카드');if(rnd()<.6)givePotion(p,'전리품 포션');giveItem(p,'전리품');if(x.lv>=3&&rnd()<.3)learnSpell(p);if(x.lv>=4&&rnd()<.25)giveRelic(p,M.n+' 처치');if(p===0)burst()}
  else{const loss=Math.round(P.cash*.05);P.cash-=loss;P.robots.forEach(r=>r.hp=Math.max(20,r.hp-25));log(`💥 ${who(p)} ${M.n}에게 패배 — ${fmt(loss)} 손실, 로봇 손상`,'bad')}
  renderMonsters();renderAll()}
 // 3D 몬스터 스프라이트
@@ -3180,10 +3183,10 @@ function renderLab(){const box=$('#lab');if(!box||!G)return;const P=G.players[0]
  <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><button class="btn sm main" id="mk" ${canBuildRobot(0,d)?'':'disabled'}>⚗️ 합성·제조</button><button class="btn sm" id="pack" ${P.cash>=25?'':'disabled'}>🃏 카드 팩 (25억)</button></div>
  <h3 style="margin-top:8px">🤖 나의 로봇 (${P.robots.length}/12) · 전력 ${Math.round(armyPower(0))}</h3>${P.robots.map(r=>`<div class="sub">${r.align==='빛'?'✨':'🌑'} ${esc(r.name)} · 공${r.atk} 방${r.def} · 생산 ${fmt(r.income)} · 내구 ${Math.round(r.hp)}%</div>`).join('')||'<div class="sub">아직 로봇이 없습니다.</div>'}
  <h3 style="margin-top:8px">🧪 포션 (${P.potions.length})</h3>${P.potions.map((id,k)=>{const po=IC.potion(id);return `<div class="asset"><span style="width:26px;height:26px">${SK.potion(po.flask,po.color)}</span><span>${esc(po.name)}<br><small class="sub">마시기: ${esc(po.uses[0].text)} · 전투: ${esc(po.uses[1].text)} · 촉매: ${esc(po.uses[2].text)}</small></span><button class="btn sm" data-d="${k}">마시기</button></div>`}).join('')||'<div class="sub">포션이 없습니다. 몬스터·보물 행성에서 얻습니다.</div>'}
- <div class="sub" style="margin-top:6px">📚 지식 ${P.know} · 도감: 아이템 ${G.codex.size}/${IC.ITEM_COUNT.toLocaleString()} <button class="btn sm" id="codex">📖 도감 검색</button></div>`;
+ <div class="sub" style="margin-top:6px">📚 지식 ${P.know} · 도감: 아이템 ${G.codex.size}/${IC.ITEM_COUNT.toLocaleString()} <button class="btn sm" id="codex">📖 도감 검색</button></div><div id="lab3"></div>`;
  ['lc','lb','lp','la'].forEach((id,k)=>$('#'+id).onchange=e=>{labSel[['ci','bi','pi','align'][k]]=k<3?+e.target.value:e.target.value;renderLab()});
  $('#mk').onclick=()=>{if(buildRobot(0,design(labSel.ci,labSel.bi,labSel.pi,labSel.align)))renderAll()};$('#pack').onclick=()=>{if(P.cash>=25){P.cash-=25;giveCard(0,1,'카드 팩');sfx('coin');renderAll()}};
- box.querySelectorAll('button[data-d]').forEach(b=>b.onclick=()=>drink(0,+b.dataset.d));$('#codex').onclick=codexModal}
+ box.querySelectorAll('button[data-d]').forEach(b=>b.onclick=()=>drink(0,+b.dataset.d));$('#codex').onclick=codexModal;renderLab3()}
 function codexModal(){modal(`<h2>📖 은하 도감</h2><div class="sub">아이템 ${IC.ITEM_COUNT.toLocaleString()}종 · 포션 ${IC.POTION_COUNT}종(용도 ${IC.POTION_COUNT*3}가지) · 로봇 설계 2,000가지. 발견한 아이템에는 ✔가 붙습니다.</div>
  <input id="cq" placeholder="검색: 예) 지니, 전설, 火, 현기, 회복…"><div style="display:flex;gap:6px;margin:8px 0"><button class="btn sm main" id="cqi">아이템</button><button class="btn sm" id="cqp">포션</button></div><div id="cres" style="max-height:52vh;overflow:auto"></div>
  <button class="btn" onclick="document.getElementById('modal').classList.remove('show')">닫기 <kbd>Esc</kbd></button>`);
@@ -3202,6 +3205,112 @@ function isoView(){const c=V.cam;V.iso=!V.iso;c.ph=V.iso?.8:.955;c.tr=V.iso?22:2
 function fullScreen(){const d=document.documentElement;try{if(!document.fullscreenElement)d.requestFullscreen().catch(()=>toast('전체 화면을 쓸 수 없는 환경입니다'));else document.exitFullscreen()}catch(e){toast('전체 화면을 쓸 수 없는 환경입니다')}}
 $('#bFull').onclick=fullScreen;$('#bPanel').onclick=()=>document.body.classList.toggle('nopanel');$('#bSave').onclick=saveGame;$('#bLoad').onclick=loadGame;
 addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea')||$('#modal').classList.contains('show'))return;const k=e.key.toLowerCase();if(k==='v')isoView();else if(k==='z')fullScreen();else if(k==='q')document.body.classList.toggle('nopanel');else if(k==='s'&&e.ctrlKey){e.preventDefault();saveGame()}else if(k==='4')tab('lab');else if(k==='5')tab('bank')});
+
+// ================= v0.3 마법 100종 · 로봇 변신·장착 · 전설 유물 =================
+// 마법 = 원형 20 × 오행 5 = 100종. 고전 RPG의 '유성우·연쇄 번개·시간 정지·부활' 같은 보편적 원형을 우주·오행 언어로 새로 지었다.
+const SP_EL=[['목','청목'],['화','적염'],['토','황토'],['금','백금'],['수','흑수']];
+const SP_ARCH=[ // [이름, 종류, 위력, 마나, 설명]  종류: atk(전투 피해) buf(전투 강화) heal econ move util
+ ['유성우','atk',60,8,'하늘에서 작은 별들이 쏟아집니다'],['연쇄 번개','atk',45,6,'번개가 적에서 적으로 튀어 다닙니다'],['초신성 폭발','atk',90,14,'별 하나가 생을 마치며 빛을 터뜨립니다'],
+ ['얼음 감옥','atk',35,5,'적을 시간째 얼려 버립니다'],['영혼 흡수','atk',40,6,'적의 기운을 빨아 로봇을 고칩니다'],['혼돈의 소용돌이','atk',55,9,'적 전체를 무작위로 휘젓습니다'],
+ ['수호 방벽','buf',40,5,'빛의 벽이 로봇들을 감쌉니다'],['광전사의 외침','buf',45,6,'로봇들이 두려움을 잊습니다'],['가속의 바람','buf',30,4,'로봇들이 두 배로 빨라집니다'],['매혹의 노래','buf',50,8,'적이 싸울 이유를 잊습니다'],
+ ['치유의 빛','heal',30,4,'모든 로봇의 상처를 메웁니다'],['부활의 불꽃','heal',100,12,'멈춘 로봇에 다시 심장을 켭니다'],
+ ['금화의 비','econ',60,7,'하늘에서 금화가 내립니다'],['번영의 축복','econ',4,8,'내 섹터 시세가 오릅니다'],['연금 변환','econ',40,6,'포션 하나를 금으로 바꿉니다'],
+ ['순간이동','move',0,6,'원하는 보물 행성으로 건너뜁니다'],['시간 정지','move',0,10,'한 번 더 차례를 얻습니다'],['차원문 열기','move',0,9,'바로 앞에 평행우주 포털을 엽니다'],
+ ['예지의 눈','util',0,3,'다음 국면과 숨은 위협을 봅니다'],['정화의 종','util',0,5,'저주·독·감찰청 구속을 풉니다']];
+const SPELLS=[];SP_ARCH.forEach((a,k)=>SP_EL.forEach(([el,adj],e)=>SPELLS.push({id:k*5+e,name:`${adj}의 ${a[0]}`,base:a[0],type:a[1],pow:Math.round(a[2]*(1+e*.04)),mp:a[3],el,desc:a[4]})));
+function mpMax(p){const P=G.players[p];return 20+5*(P.ck||[]).filter(Boolean).length+Math.floor((P.know||0)/5)}
+function spellInit(P,i){P.mp=12;P.spells=[];P.relics=[];for(let k=0;k<3;k++)learnSpell(i,true)}
+function learnSpell(p,quiet){const P=G.players[p];const pool=SPELLS.filter(s=>!P.spells.includes(s.id));if(!pool.length)return null;
+ // 내 일간 오행과 같은 계열을 조금 더 잘 배운다
+ const fav=pool.filter(s=>s.el===P.el);const s=(fav.length&&rnd()<.4)?pick(fav):pick(pool);P.spells.push(s.id);
+ if(!quiet&&p===0){log(`📜 새 마법 습득: 「${s.name}」 (${OH.HZ[s.el]} · ${s.desc})`,'good');sfx('merge')}return s}
+function mpTick(){G.players.forEach((P,i)=>{if(P.out)return;P.mp=Math.min(mpMax(i),(P.mp||0)+4);P.robots.forEach(r=>{if(r.regen)r.hp=Math.min(100,r.hp+8)})})}
+// 전투용 마법 고르기
+function bestBattleSpell(p){const P=G.players[p];let b=null;for(const id of P.spells){const s=SPELLS[id];if((s.type==='atk'||s.type==='buf')&&s.mp<=P.mp&&(!b||s.pow>b.pow))b=s}return b}
+function castBattle(p,s){const P=G.players[p];P.mp-=s.mp;spellFx(p,s);let bonus=s.pow;if(OH.saeng(G.astro.pillar.stemEl,s.el))bonus*=1.2;
+ if(s.base==='영혼 흡수')P.robots.forEach(r=>r.hp=Math.min(100,r.hp+15));log(`🔮 ${who(p)} 「${s.name}」 시전! 전력 +${Math.round(bonus)}`,p===0?'good':'ai');return bonus}
+function spellFx(p,s){const P=G.players[p];if(V.ok&&P.wid===V.view)lootBeam(P.wid,P.pos,OH.COLOR[s.el]);if(p===0){burst();sfx('pop',1,4,s.id%20)}}
+// 필드 마법 시전 (사람·AI 공통)
+async function castField(p,id){const P=G.players[p],s=SPELLS[id];if(!s||P.mp<s.mp||G.over)return false;
+ if(s.type==='atk'||s.type==='buf')return false;P.mp-=s.mp;spellFx(p,s);let t='';
+ switch(s.base){
+  case '치유의 빛':P.robots.forEach(r=>r.hp=Math.min(100,r.hp+s.pow));t='로봇들이 회복되었습니다';break;
+  case '부활의 불꽃':P.robots.forEach(r=>r.hp=100);t='모든 로봇이 완전히 회복되었습니다';break;
+  case '금화의 비':P.cash+=s.pow;t=`+${fmt(s.pow)}`;break;
+  case '번영의 축복':{const gs=new Set(allOwned(p).map(([w,i])=>sp(w,i).g));const m={};gs.forEach(g=>m[g]=s.pow);if(gs.size)shock(m);t='보유 섹터 시세 상승';break}
+  case '연금 변환':if(P.potions.length){P.potions.shift();P.cash+=s.pow;t=`포션 하나가 ${fmt(s.pow)}이 되었습니다`}else{P.mp+=s.mp;return false}break;
+  case '순간이동':{const ts=[];for(const wid in G.worlds)W(wid).spaces.forEach((x,i)=>{if(x.type==='treasure')ts.push([wid,i])});if(!ts.length){P.mp+=s.mp;return false}const [wid,i]=pick(ts);t=`${W(wid).name}의 보물 행성으로`;log(`🔮 ${who(p)} 「${s.name}」 — ${t}`,p===0?'good':'ai');await warpTo(p,wid,i,false);await land(p,7);renderAll();return true}
+  case '시간 정지':P.extraTurn=1;t='이번 차례가 끝나면 한 번 더 움직입니다';break;
+  case '차원문 열기':{const w=W(P.wid);if(w.depth>=4){P.mp+=s.mp;return false}log(`🔮 ${who(p)} 「${s.name}」 — 차원문이 열립니다`,p===0?'good':'ai');await portal(p);renderAll();return true}
+  case '예지의 눈':{const nx=OH.PHASES[(G.phase+1)%5];const near=G.monsters.filter(x=>x.wid===P.wid&&((x.pos-P.pos+W(P.wid).spaces.length)%W(P.wid).spaces.length)<=12).length;t=`다음 국면 ${OH.HZ[nx.el]} ${nx.name}(${G.phaseLeft}일 후) · 전방 12칸 몬스터 ${near}마리`;chakra(p,5);break}
+  case '정화의 종':P.jail=false;P.buff.poison=0;P.robots.forEach(r=>r.hp=Math.max(r.hp,60));t='구속과 독이 풀렸습니다';break;
+ }
+ log(`🔮 ${who(p)} 「${s.name}」 — ${t}`,p===0?'good':'ai');renderAll();return true}
+function aiSpells(p){const P=G.players[p];if(P.mp<6)return;
+ const own=P.spells.map(i=>SPELLS[i]);const dmg=P.robots.some(r=>r.hp<60);
+ const pref=own.find(s=>dmg&&s.type==='heal'&&s.mp<=P.mp)||own.find(s=>s.type==='econ'&&s.base!=='연금 변환'&&s.mp<=P.mp&&P.mp>mpMax(p)*.7);
+ if(pref)castField(p,pref.id)}
+// ---- 로봇에게 포션 먹이기: 변신 ----
+const FORMS={생명:['재생 장갑','regen'],분노:['광전사 모드','atk'],강철:['요새 모드','def'],질풍:['제트 모드','inc'],화염:['쌍격 화염포','atk2'],독:['관통 독침','atk'],행운:['행운 복제','copy'],
+ 황금:['황금 도금','refund'],시간:['시간 재생','regen'],투명:['스텔스 비행','def2'],예지:['원거리 조준경','atk'],공포:['공포의 가면','def'],번영:['번영 엔진','inc2'],혼돈:['혼돈 변이','chaos'],지식:['지식 각인','spell']};
+function feedRobot(p,pi,ri_){const P=G.players[p];const r=P.robots[ri_],id=P.potions[pi];if(!r||id==null)return false;const po=IC.potion(id),m=po.mag;const [form,k]=FORMS[po.essName];P.potions.splice(pi,1);r.forms=r.forms||[];
+ if(r.forms.length>=4){r.forms.shift()}r.forms.push(form);let t='';
+ switch(k){case 'regen':r.regen=1;r.hp=100;t='매일 스스로 수리';break;case 'atk':r.atk=Math.round(r.atk+8*m);t=`공격 +${Math.round(8*m)}`;break;case 'atk2':r.atk=Math.round(r.atk*1.15+4);t='공격 ×1.15';break;
+  case 'def':r.def=Math.round(r.def+8*m);t=`방어 +${Math.round(8*m)}`;break;case 'def2':r.def=Math.round(r.def*1.12+3);r.stealth=1;t='방어 ×1.12, 스텔스';break;
+  case 'inc':r.income=Math.round((r.income+.6*m)*10)/10;t=`생산 +${(.6*m).toFixed(1)}`;break;case 'inc2':r.income=Math.round(r.income*1.2*10)/10;t='생산 ×1.2';break;
+  case 'copy':if(P.robots.length<12){P.robots.push(Object.assign({},r,{forms:['행운 복제체'],hp:70}));t='쌍둥이 로봇이 태어났습니다'}else t='격납고가 가득 차 복제 실패';break;
+  case 'refund':{const a=Math.round(r.cost*.3);P.cash+=a;t=`제조비 ${fmt(a)} 환급`;break}
+  case 'chaos':{const d=ri(-6,16);r.atk=Math.max(5,r.atk+d);r.def=Math.max(5,r.def+ri(-6,16));t=`예측 불가 변이 (공격 ${d>=0?'+':''}${d})`;break}
+  case 'spell':{const s=learnSpell(p,true);t=s?`마법 「${s.name}」을 각인`:'더 배울 마법이 없습니다';break}}
+ if(p===0){log(`🦾 ${r.name} ← ${po.name}: ${form}! ${t}`,'good');sfx('merge');burst()}return true}
+// ---- 장착 ----
+const SLOT={무기:'w',방어구:'a',장신구:'t','로봇 부품':'t'};
+function equip(p,ii,ri_){const P=G.players[p];const r=P.robots[ri_],id=P.items[ii];if(!r||id==null)return false;const it=IC.item(id);const sl=SLOT[it.cat];if(!sl)return false;r.eq=r.eq||{};
+ if(r.eq[sl]!=null)P.items.push(r.eq[sl]);r.eq[sl]=id;P.items.splice(ii,1);if(p===0){log(`🛠 ${r.name}에 [${it.rarityName}] ${it.name} 장착`,'good');sfx('coin')}return true}
+function eqBonus(r){const b={atk:0,def:0,inc:0};if(!r.eq)return b;for(const sl in r.eq){const it=IC.item(r.eq[sl]);const v=Math.round(it.power/3);if(sl==='w')b.atk+=v;else if(sl==='a')b.def+=v;else b.inc+=it.power/100}return b}
+function aiGear(p){const P=G.players[p];if(!P.robots.length)return;
+ for(let k=P.items.length-1;k>=0;k--){const it=IC.item(P.items[k]);const sl=SLOT[it.cat];if(!sl)continue;const r=P.robots.reduce((a,x)=>{const cur=x.eq&&x.eq[sl]!=null?IC.item(x.eq[sl]).power:-1;return cur<it.power&&(!a||cur<a.c)?{x,c:cur}:a},null);if(r)equip(p,k,P.robots.indexOf(r.x))}
+ if(P.potions.length>2&&rnd()<.5){const r=P.robots.reduce((a,x)=>(!a||(x.forms||[]).length<(a.forms||[]).length)?x:a,null);feedRobot(p,0,P.robots.indexOf(r))}}
+// ---- 전설 유물 (고대 지구의 신화·민담 모티프, 모두 공공 영역 전승) ----
+const RELICS=[
+ {n:'지니의 호리병',o:'아라비아 민담',c:3,d:'소원 3번: 현금 300억 · 차원 결정 · 원하는 곳으로',f:async p=>{const P=G.players[p];const v=isHuman(p)?await ask('🧞 호리병의 정령이 묻습니다. 무엇을 바라십니까?',[{t:'💰 300억',v:0,main:1},{t:'💠 차원 결정',v:1},{t:'🌀 보물 행성으로',v:2}],{auto:()=>P.shards>=3?1:0}):(P.shards>=2?1:0);
+   if(v===0)addCash(p,300,`🧞 ${who(p)}의 소원: 300억`);else if(v===1)gainShard(p);else await castFieldFree(p,'순간이동')}},
+ {n:'알라딘의 램프',o:'천일야화',c:1,d:'램프의 정령이 상대 AI 하나의 현금 15%를 공적자금으로 옮깁니다',f:p=>{const q=richest(p);if(q<0)return;const a=Math.round(G.players[q].cash*.15);G.players[q].cash-=a;G.pot+=a;log(`🪔 램프의 정령이 ${G.players[q].name}의 ${fmt(a)}을 공적자금으로 옮겼습니다`,'sys')}},
+ {n:'여의주',o:'동아시아 용 신화',c:2,d:'모든 로봇 완전 회복 + 마나 가득',f:p=>{const P=G.players[p];P.robots.forEach(r=>r.hp=100);P.mp=mpMax(p);log(`🐉 ${who(p)} 여의주가 빛납니다 — 로봇 회복·마나 충전`,'good')}},
+ {n:'판도라의 상자',o:'그리스 신화',c:1,d:'열면 큰 재앙과 큰 희망이 함께 나옵니다',f:p=>{const P=G.players[p];const bad=Math.round(P.cash*.1);P.cash-=bad;shake();const k=pick(SKEYS);shock({[k]:-20});giveItem(p,'상자 밑바닥의 희망');gainShard(p);log(`📦 ${who(p)} 판도라의 상자 — 재앙(${fmt(bad)}, ${SECT[k].name} −20%) 뒤에 남은 희망`,'sys')}},
+ {n:'솔로몬의 반지',o:'고대 근동 전승',c:3,d:'몬스터와 대화해 싸우지 않고 지나갑니다 (자동 발동)',passive:'ring'},
+ {n:'성배',o:'아서왕 전설',c:1,d:'윤리 +, 모든 함대에 치유의 은총',f:p=>{G.players[p].karma=(G.players[p].karma||0)+2;G.players.forEach(P=>P.robots&&P.robots.forEach(r=>r.hp=100));chakra(p,3);log(`🏆 ${who(p)} 성배를 들어 올립니다 — 모든 함대가 치유됩니다`,'good')}},
+ {n:'삼족오의 깃털',o:'고구려 태양 신화',c:2,d:'다음 이동을 원하는 수(2~12)로',f:async p=>{const P=G.players[p];let n=7;if(isHuman(p))n=await ask('☀️ 삼족오가 날아갑니다. 몇 칸을 갈까요?',[2,4,6,7,8,10,12].map(x=>({t:x+'칸',v:x,main:x===7})),{auto:()=>7});P.fixMove=n;log(`☀️ ${who(p)} 다음 이동 ${n}칸 고정`,'good')}},
+ {n:'여의봉',o:'서유기',c:2,d:'몬스터 하나를 즉시 날려 보냅니다 + 전리품',f:p=>{const P=G.players[p];const x=G.monsters.filter(m=>m.wid===P.wid).sort((a,b)=>Math.abs(a.pos-P.pos)-Math.abs(b.pos-P.pos))[0];if(!x)return;G.monsters.splice(G.monsters.indexOf(x),1);giveCard(p,2,'여의봉 전리품');renderMonsters();log(`🥢 ${who(p)} 여의봉이 늘어나 ${MON[x.k].n}을(를) 날려 보냈습니다`,'good')}},
+ {n:'아틀란티스 수정',o:'플라톤의 전설',c:1,d:'모든 로봇 생산 +25% 영구',f:p=>{G.players[p].robots.forEach(r=>r.income=Math.round(r.income*1.25*10)/10);log(`💎 ${who(p)} 아틀란티스 수정 — 로봇 생산 +25%`,'good')}},
+ {n:'천부인',o:'단군 신화',c:1,d:'세 보인의 힘: 카드 3장 · 포션 · 마법',f:p=>{giveCard(p,3,'천부인');givePotion(p,'천부인');learnSpell(p)}},
+ {n:'이그드라실의 씨앗',o:'북유럽 신화',c:1,d:'새 평행우주를 틔워 그곳으로 갑니다',f:async p=>{const P=G.players[p];const w=W(P.wid);if(w.depth>=4)return;const cid=addWorld(Multiverse.sub(w,P.pos,Math.min(4,w.depth+1),R));log(`🌳 ${who(p)} 세계수의 씨앗 — ${W(cid).name}가 자라납니다`,'sys');await warpTo(p,cid,1,false);await land(p,7)}},
+ {n:'칠지도',o:'백제 전승',c:2,d:'다음 몬스터 전투 전력 +150',f:p=>{const P=G.players[p];P.buff.atk=(P.buff.atk||0)+150;log(`🗡 ${who(p)} 칠지도의 일곱 가지가 빛납니다`,'good')}}];
+function richest(p){let q=-1,m=-1;G.players.forEach((P,i)=>{if(i!==p&&!P.out&&P.cash>m){m=P.cash;q=i}});return q}
+async function castFieldFree(p,base){const s=SPELLS.find(x=>x.base===base);G.players[p].mp+=s.mp;return castField(p,s.id)}
+function giveRelic(p,why){const P=G.players[p];const have=new Set(P.relics.map(r=>r.k));const pool=RELICS.map((_,k)=>k).filter(k=>!have.has(k));if(!pool.length)return;const k=pick(pool);P.relics.push({k,c:RELICS[k].c});
+ log(`🌟 ${who(p)} 전설 유물 발견 — 「${RELICS[k].n}」 (${RELICS[k].o}) ${why?'· '+why:''}`,p===0?'good':'ai');if(p===0){burst(true);sfx('win',1);lootBeam(P.wid,P.pos,'#ffd36b')}}
+async function useRelic(p,idx){const P=G.players[p];const r=P.relics[idx];if(!r||G.over)return;const R_=RELICS[r.k];if(R_.passive)return;r.c--;if(r.c<=0)P.relics.splice(idx,1);await R_.f(p);renderAll()}
+function hasRing(p){const P=G.players[p];const r=(P.relics||[]).find(x=>RELICS[x.k].passive==='ring');return r}
+async function aiRelics(p){const P=G.players[p];if(!P.relics.length||rnd()>.35)return;const i=P.relics.findIndex(r=>!RELICS[r.k].passive);if(i>=0)await useRelic(p,i)}
+// ---- 연구소 v0.3 패널 (로봇 정비·마법서·유물) ----
+let gearSel=0;
+function renderLab3(){const box=$('#lab3');if(!box||!G)return;const P=G.players[0];if(!P.spells)return;
+ if(gearSel>=P.robots.length)gearSel=0;const r=P.robots[gearSel];
+ const robSel=P.robots.length?`<select id="gsel">${P.robots.map((x,k)=>`<option value="${k}" ${k===gearSel?'selected':''}>${x.align==='빛'?'✨':'🌑'} ${esc(x.name)}</option>`).join('')}</select>`:'<div class="sub">로봇을 먼저 만드세요.</div>';
+ const eq=r?(()=>{const b=eqBonus(r);return `<div class="sub">변신: ${(r.forms||[]).join(' · ')||'없음'}<br>장착: ${['w','a','t'].map(sl=>r.eq&&r.eq[sl]!=null?IC.item(r.eq[sl]).name:'—').join(' / ')} · 장비 보너스 공${b.atk} 방${b.def} 생산 +${b.inc.toFixed(1)}</div>`})():'';
+ const items=P.items.map((id,k)=>({it:IC.item(id),k})).filter(o=>SLOT[o.it.cat]);
+ box.innerHTML=`<h3 style="margin-top:8px">🦾 로봇 정비 (포션 먹이기 = 변신 · 장비 장착)</h3>${robSel}${eq}
+ ${r?`<div class="sub" style="margin-top:4px">포션 먹이기:</div>${P.potions.map((id,k)=>{const po=IC.potion(id);return `<button class="btn sm" data-fd="${k}" title="${esc(po.uses[2].text)}">🧪 ${esc(po.essName)} → ${FORMS[po.essName][0]}</button>`}).join(' ')||'<span class="sub">포션 없음</span>'}
+ <div class="sub" style="margin-top:4px">장착 가능 장비:</div>${items.slice(-8).map(o=>`<button class="btn sm" data-eq="${o.k}" style="border-color:${o.it.rarityColor}">🛠 ${esc(o.it.name)} (${o.it.cat})</button>`).join(' ')||'<span class="sub">장비 없음 (무기·방어구·장신구·로봇 부품)</span>'}`:''}
+ <h3 style="margin-top:8px">📜 마법서 (${P.spells.length}/100) · 마나 ${Math.round(P.mp)}/${mpMax(0)}</h3>
+ ${P.spells.map(id=>{const s=SPELLS[id];const field=!(s.type==='atk'||s.type==='buf');return `<div class="asset"><span style="background:${OH.COLOR[s.el]};width:8px;height:22px;border-radius:4px"></span><span><b>${esc(s.name)}</b> <small class="sub">${OH.HZ[s.el]} · ${({atk:'전투 공격',buf:'전투 강화',heal:'회복',econ:'경제',move:'이동',util:'보조'})[s.type]} · 마나 ${s.mp}</small><br><small class="sub">${esc(s.desc)}${field?'':' (몬스터 전투에서 자동 시전)'}</small></span>${field?`<button class="btn sm" data-sp="${id}" ${P.mp>=s.mp&&canManage()?'':'disabled'}>시전</button>`:'<span></span>'}</div>`}).join('')}
+ <h3 style="margin-top:8px">🌟 전설 유물 (${P.relics.length}/12)</h3>${P.relics.map((x,k)=>{const R_=RELICS[x.k];return `<div class="asset"><span style="width:8px;height:22px;background:#ffd36b;border-radius:4px"></span><span><b style="color:#ffd36b">${R_.n}</b> <small class="sub">${R_.o} · 남은 횟수 ${x.c}</small><br><small class="sub">${R_.d}</small></span>${R_.passive?'<span class="sub">자동</span>':`<button class="btn sm main" data-rl="${k}" ${canManage()?'':'disabled'}>사용</button>`}</div>`}).join('')||'<div class="sub">보물 행성(깊은 차원일수록)과 강한 몬스터에게서 발견됩니다.</div>'}`;
+ const gs=$('#gsel');if(gs)gs.onchange=e=>{gearSel=+e.target.value;renderLab3()};
+ box.querySelectorAll('[data-fd]').forEach(b=>b.onclick=()=>{feedRobot(0,+b.dataset.fd,gearSel);renderAll()});
+ box.querySelectorAll('[data-eq]').forEach(b=>b.onclick=()=>{equip(0,+b.dataset.eq,gearSel);renderAll()});
+ box.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>castField(0,+b.dataset.sp));
+ box.querySelectorAll('[data-rl]').forEach(b=>b.onclick=()=>useRelic(0,+b.dataset.rl))}
 
 tab('assets');initScene();
 window.__game={get G(){return G},start:startGame,V};

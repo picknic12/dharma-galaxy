@@ -28,7 +28,7 @@ function aiAsk(seller,buyer,wid,i){ // 판매 희망가
  return Math.round(mkt(wid,i)*need);
 }
 async function aiManage(p){
- const P=G.players[p];if(P.out)return;const msgs=[];aiFinance(p);aiLab(p);if(P.potions.length>3&&rnd()<.3)drink(p,0);
+ const P=G.players[p];if(P.out)return;const msgs=[];aiFinance(p);aiLab(p);aiGear(p);aiSpells(p);await aiRelics(p);if(P.potions.length>3&&rnd()<.3)drink(p,0);
  // 담보 해제
  for(const [w,i] of allOwned(p).filter(([w,i])=>own(w,i).m).sort((a,b)=>mkt(...b)-mkt(...a))){if(P.cash-unmortCost(w,i)>=aiReserve(p)*1.6&&unmort(p,w,i))msgs.push(`담보 해제 ${sp(w,i).name}`)}
  // 개발
@@ -59,7 +59,7 @@ async function aiDeals(p){
 function aiJail(p){const P=G.players[p];if(P.free>0)return 'card';const un=Object.values(G.worlds).reduce((a,w)=>a+w.own.filter(o=>o&&o.o<0).length,0);if(un>=6&&P.cash>aiReserve(p)*.8)return 'pay';if(P.pers.reserve>=1.4&&P.cash>400)return 'pay';return 'roll'}
 
 // ---------- 사람의 자동 관리 (80% 자동화) ----------
-function humanAutoManage(){const P=G.players[0];const save=P.pers;P.pers=PERS[0];const res=Math.max(260,aiReserve(0)*1.2);const msgs=[];if(G.autoHuman){aiFinance(0);aiLab(0)}
+function humanAutoManage(){const P=G.players[0];const save=P.pers;P.pers=PERS[0];const res=Math.max(260,aiReserve(0)*1.2);const msgs=[];if(G.autoHuman){aiFinance(0);aiLab(0);aiGear(0);aiSpells(0)}
  for(const [w,i] of allOwned(0).filter(([w,i])=>own(w,i).m)){if(P.cash-unmortCost(w,i)>=res*1.4&&unmort(0,w,i))msgs.push('담보 해제 '+sp(w,i).name)}
  let n=0;for(let k=0;k<20;k++){let best=null,bs=-1;for(const [w,i] of allOwned(0)){if(!canBuild(0,w,i))continue;const c=buildCost(0,w,i);if(P.cash-c<res)continue;const s=sp(w,i);const g=(s.rent[own(w,i).lv+1]-s.rent[own(w,i).lv])/c;if(g>bs){bs=g;best=[w,i]}}if(!best)break;doBuild(0,...best);n++}
  if(n)msgs.push(`개발 ${n}단계`);P.pers=save;if(msgs.length){log('🤖 자동 관리: '+msgs.join(' · '),'good');renderAll()}}
@@ -122,9 +122,9 @@ async function turn(p){
   if(isHuman(p)){if(G.manual||G.pauseReq){G.pauseReq=false;await ask(`🚀 <b>${esc(P.name)}</b>님의 차례입니다. 자산을 정비한 뒤 주사위를 굴리세요.${P.qdice?` (⚛️ 관측권 ${P.qdice})`:''}`,[{t:'🎲 주사위 굴리기',v:1,main:1}],{manage:true})}else{if(G.autoManage)humanAutoManage();G.status=`🚀 ${P.name}님의 차례 — 자동 항해 중 (⏸ 일시정지로 직접 정비)`;renderAct();await sleep(650)}}
   const d=await showRoll(p);
   if(d[0]===d[1]){P.dbl++;if(P.dbl>=3){log(`🎲 ${who(p)} 3연속 더블 — 과열 거래 혐의!`,'bad');goJail(p);break}again=true;log(`🎲 ${who(p)} 더블! 한 번 더`,'sys')}
-  let mv=d[0]+d[1];if(P.buff&&P.buff.move){mv+=P.buff.move;P.buff.move=0}
+  let mv=d[0]+d[1];if(P.fixMove){mv=P.fixMove;P.fixMove=0;log(`☀️ 삼족오의 비행 — ${mv}칸`,'sys')}if(P.buff&&P.buff.move){mv+=P.buff.move;P.buff.move=0}
   await moveBy(p,mv);await encounter(p);if(P.out||G.over)break;await land(p,d[0]+d[1]);
-  if(P.jail||P.out)again=false;
+  if(P.jail||P.out)again=false;else if(P.extraTurn){P.extraTurn=0;again=true;log(`⏳ ${who(p)} 시간 정지 — 한 번 더!`,'sys')}
   if(P.isAI&&!P.out&&!G.over)await aiManage(p);
  }
  P.dbl=0;
