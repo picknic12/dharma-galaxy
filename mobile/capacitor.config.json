@@ -1,0 +1,9 @@
+{
+  "appId": "com.easterndragon.dharmagalaxy",
+  "appName": "다르마 갤럭시 2027",
+  "webDir": "www",
+  "android": {
+    "appendUserAgent": "DharmaGalaxyApp",
+    "backgroundColor": "#05040f"
+  }
+}

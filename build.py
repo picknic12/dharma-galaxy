@@ -8,3 +8,7 @@ h=(B/'src/index.html').read_text()
 h=h.replace('/*__CSS__*/',css).replace('/*__VENDOR__*/',vendor.replace('</script','<\\/script')).replace('/*__LIB__*/',lib).replace('/*__RULES__*/',json.dumps((B/'src/rules.html').read_text(),ensure_ascii=False)).replace('/*__GAME__*/',game)
 (B/'docs').mkdir(exist_ok=True);(B/'docs/index.html').write_text(h)
 print(len(h))
+# 모바일(안드로이드·PWA)판도 같은 본체로 함께 갱신 → docs/m/
+_m=B/'mobile/build_mobile.py'
+if _m.exists():
+    import runpy;runpy.run_path(str(_m))['make'](h)

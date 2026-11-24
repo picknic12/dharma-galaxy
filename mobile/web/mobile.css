@@ -1,0 +1,110 @@
+/* ===== 다르마 갤럭시 2027 · 모바일(안드로이드) 레이어 =====
+   PC 스타일(src/style.css) 위에 덧씌웁니다. 게임 규칙·로직은 PC판과 같은 소스를 씁니다. */
+:root{--navH:56px;--safeT:env(safe-area-inset-top,0px);--safeB:env(safe-area-inset-bottom,0px);--sheetH:50vh}
+html,body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+input,select,textarea{-webkit-user-select:auto;user-select:auto;font-size:16px!important}
+body.m kbd,body.m .keys{display:none!important}
+body.m footer{display:none}
+body.m .btn{min-height:38px}
+
+/* --- 상단바: 제목 + 상태 칩만 --- */
+body.m header{padding:calc(4px + var(--safeT)) 8px 8px;gap:6px;flex-wrap:nowrap;align-items:center}
+body.m header h1{font-size:16px;white-space:nowrap;margin:0}
+body.m header h1 small,body.m header .sub{display:none!important}
+body.m header .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:4px;flex:1;min-width:0}
+body.m header .chips::-webkit-scrollbar{display:none}
+body.m header .chip{font-size:11.5px;padding:3px 8px;white-space:nowrap;flex:none}
+body.m header .chips .btn{display:none}
+
+/* --- 하단 탭바 --- */
+#mNav{display:none}
+body.m #mNav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;height:calc(var(--navH) + var(--safeB));padding-bottom:var(--safeB);background:rgba(14,11,38,.94);border-top:1px solid var(--line)}
+#mNav button{flex:1;background:none;border:0;color:var(--muted);font:600 11px/1.15 'Noto Sans KR',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+#mNav button i{font-style:normal;font-size:21px;line-height:1}
+#mNav button.on{color:#fff;text-shadow:0 0 10px rgba(185,166,255,.9)}
+#mNav button.on i{transform:scale(1.12)}
+
+/* --- 정보 시트(PC의 오른쪽 패널) → 아래에서 올라오는 시트 --- */
+body.m aside{top:auto!important;left:0!important;right:0!important;width:auto!important;bottom:calc(var(--navH) + var(--safeB))!important;height:var(--sheetH)!important;padding:6px 8px 10px;border-radius:18px 18px 0 0;background:rgba(14,11,38,.9);border-top:1px solid var(--line);overflow:auto;-webkit-overflow-scrolling:touch;gap:8px}
+body.m aside::before{content:'';display:block;flex:none;width:44px;height:5px;border-radius:3px;margin:0 auto 2px;background:rgba(255,255,255,.28)}
+body.m.nopanel aside{transform:translateY(calc(var(--sheetH) + 80px))!important}
+body.m aside .panel{padding:10px}
+body.m .tabs{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none}
+body.m .tabs::-webkit-scrollbar{display:none}
+body.m .tabs button{flex:none;white-space:nowrap;font-size:13px;padding:8px 10px}
+
+/* --- 무대 위 HUD --- */
+body.m #stage{bottom:calc(var(--navH) + var(--safeB));height:auto!important}
+body.m #stage .hud.tl{top:calc(48px + var(--safeT));left:8px;max-width:70%}
+body.m #wheel{display:none}
+body.m #worldName{font-size:15px}
+body.m .astro{font-size:11px}
+body.m #stage .hud.tr{top:calc(48px + var(--safeT))!important;right:6px!important;gap:4px}
+body.m #bHome{display:none}
+body.m #track{display:none}
+body.m #chakra{gap:4px;padding:4px}
+body.m #chakra i{width:10px;height:10px}
+body.m #stage .hud.bc{left:8px!important;right:8px;transform:none;width:auto;bottom:8px!important;gap:6px}
+body.m:not(.nopanel) #stage .hud.bc{bottom:calc(var(--sheetH) + 8px)!important}
+body.m #act{width:100%;padding:8px 10px;border-radius:14px}
+body.m #act .q{font-size:13.5px;margin-bottom:6px}
+body.m #act .row{gap:6px}
+body.m #act .btn{flex:1 1 auto;min-height:42px;font-size:14px}
+body.m .news{font-size:12.5px}
+body.m .die{width:38px;height:38px}
+body.m .lab{font-size:10px;padding:1px 5px}
+body.m .lab span{font-size:9px}
+body.m #toast{top:calc(52px + var(--safeT));max-width:90vw;text-align:center}
+
+/* --- 카메라 터치 조작판 (키보드 단축키 대체) --- */
+#mCam{display:none}
+body.m #mCam{display:flex;position:absolute;z-index:6;left:6px;top:calc(124px + var(--safeT));flex-direction:column;gap:5px;opacity:.9}
+#mCam button{width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:rgba(14,11,38,.45);color:#fff;font-size:17px;display:grid;place-items:center;padding:0}
+#mCam button.on{background:rgba(143,124,255,.45)}
+body.m:not(.nopanel) #mCam{display:none}
+
+/* --- 메뉴 시트 (PC 상단 버튼 모음) --- */
+#mMenu{position:fixed;inset:0;z-index:45;display:none;background:rgba(5,4,18,.55)}
+#mMenu.show{display:block}
+#mMenu .box{position:absolute;left:0;right:0;bottom:calc(var(--navH) + var(--safeB));padding:14px 12px 16px;border-radius:20px 20px 0 0;background:linear-gradient(160deg,rgba(40,34,90,.98),rgba(18,16,46,.98));border-top:1px solid var(--line);max-height:75vh;overflow:auto}
+#mMenu h3{margin:0 0 10px;font:400 18px Jua,sans-serif}
+#mMenu .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#mMenu .grid .btn{font-size:21px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:64px;padding:6px 2px;font-size:11.5px;line-height:1.2;text-align:center;white-space:normal}
+#mMenu .grid .btn .ic{font-size:20px}
+#mMenu .foot{margin-top:12px;font-size:11px;color:var(--muted);text-align:center}
+
+/* --- 대화상자 --- */
+body.m .modal{padding:6px;padding-top:calc(6px + var(--safeT))}
+body.m .dlg{max-height:calc(100vh - 20px - var(--safeT));padding:14px 14px;border-radius:16px}
+body.m .dlg h2{font-size:20px}
+
+/* --- 육각 전장 --- */
+body.m .bt-top{top:calc(6px + var(--safeT));font-size:14px;padding:4px 12px;max-width:92vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.m .bt-bar{bottom:calc(8px + var(--safeB));padding:6px 8px;gap:6px}
+body.m .bt-bar .btn{min-height:40px}
+body.m .bt-log{left:6px;right:6px;width:auto;bottom:calc(76px + var(--safeB));max-height:22vh;overflow:hidden;font-size:11.5px}
+
+/* --- 가로 화면 --- */
+@media (orientation:landscape) and (max-height:560px){
+ :root{--navH:44px;--sheetH:calc(100vh - 48px - var(--navH))}
+ body.m header{padding-top:2px;padding-bottom:4px}
+ body.m #mNav button{flex-direction:row;gap:6px;font-size:12px}
+ body.m #mNav button i{font-size:18px}
+ body.m aside{left:auto!important;width:min(46vw,420px)!important;border-radius:18px 0 0 0;border-left:1px solid var(--line)}
+ body.m.nopanel aside{transform:translateX(110%)!important}
+ body.m:not(.nopanel) #stage .hud.bc{bottom:8px!important;right:calc(min(46vw,420px) + 8px)}
+ body.m #stage .hud.bc{left:auto!important;right:8px;width:min(440px,55vw)}
+ body.m:not(.nopanel) #stage .hud.tr{right:calc(min(46vw,420px) + 6px)!important}
+ body.m #stage .hud.tl{top:40px}
+ body.m #stage .hud.tr{top:40px!important}
+ body.m #mCam{top:100px;display:grid;grid-template-columns:36px 36px}
+ body.m:not(.nopanel) #mCam{display:grid}
+ body.m .dlg{max-height:calc(100vh - 12px)}
+ #mMenu .grid{grid-template-columns:repeat(6,1fr)}
+ body.m .bt-log{right:auto;width:38vw;bottom:60px}
+}
+
+/* --- 가벼운 그래픽 모드 --- */
+body.lite .px{display:none!important}
+body.lite *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+body.lite .lab{background:rgba(12,10,32,.75)}
