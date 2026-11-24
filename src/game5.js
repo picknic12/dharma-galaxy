@@ -63,8 +63,8 @@ function openInfo(wid,i){if(!G)return;const s=sp(wid,i),o=own(wid,i);let h=`<h2>
 let lineup=null;
 function setup(){
  if(!lineup)lineup=PicnicRng.create().shuffle(PERS.map((_,i)=>i));
- const c=(G&&G.cfg)||{name:'피크닉',ai:1,diff:'normal',rounds:30,speed:'normal',seed:'',birth:''};
- modal(`<h2>🌌 다르마 갤럭시 · 다갤</h2><div class="sub" style="margin:-6px 0 8px">PICNIC GALAXY — 은하문명의 창조자들</div><p class="sub">인간 1명 대 AI 1~7명. 우주가 곧 보드입니다. 행성 자산을 사고 개발해 통행료를 걷고, AI의 수를 읽어 독점을 막으세요. 차원 포털과 블랙홀 너머 평행우주에서 차원 결정 5개를 모으면 초월 승리합니다.</p>
+ const c=(G&&G.cfg)||{name:'피크닉',ai:1,diff:'normal',rounds:60,speed:'normal',seed:'',birth:''};
+ modal(`<h2>🌌 다르마 갤럭시 2027</h2><div class="sub" style="margin:-6px 0 8px">PICNIC GALAXY — 은하문명의 창조자들</div><p class="sub">인간 1명 대 AI 1~7명. 우주가 곧 보드입니다. 행성 자산을 사고 개발해 통행료를 걷고, AI의 수를 읽어 독점을 막으세요. 차원 포털과 블랙홀 너머 평행우주에서 차원 결정 5개를 모으면 초월 승리합니다.</p>
  <div class="grid2"><div><label>지휘관 이름</label><input id="sName" value="${esc(c.name)}" maxlength="10"></div>
  <div><label>생년월일 (양력, 선택) — 일주로 나의 일간 오행 산출</label><input id="sBirth" type="date" value="${esc(c.birth)}"></div>
  <div><label>AI 상대 수</label><select id="sAi">${[1,2,3,4,5,6,7].map(n=>`<option ${n==c.ai?'selected':''} value="${n}">${n}명${n===1?' (1:1 대결)':''}</option>`).join('')}</select></div>
@@ -101,7 +101,7 @@ function startGame(cfg){
  const ph=OH.PHASES[G.phase];showNews(`${OH.HZ[ph.el]} ${ph.name}에서 시작`,ph.desc);sfx('start',0);
  renderAll();gameLoop();
 }
-function rules(){modal(`<div class="rules"><h2>📖 다르마 갤럭시(다갤) — 규칙</h2>${RULES_HTML}<div style="margin-top:10px"><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">닫기 <kbd>Esc</kbd></button></div></div>`)}
+function rules(){modal(`<div class="rules"><h2>📖 다르마 갤럭시 2027 — 규칙</h2>${RULES_HTML}<div style="margin-top:10px"><button class="btn" onclick="document.getElementById('modal').classList.remove('show')">닫기 <kbd>Esc</kbd></button></div></div>`)}
 
 // ================= 키보드·버튼 =================
 addEventListener('keydown',e=>{
@@ -121,7 +121,7 @@ addEventListener('keydown',e=>{
  else if(k==='p'){$('#bPause').click()}else if(k==='h'){switchView(G.players[0].wid)}else if(k==='1'||k==='2'||k==='3'){const t=['assets','map','logT'][+k-1];tab(t)}
 });
 function toast(t){const d=$('#toast');d.textContent=t;d.classList.remove('show');void d.offsetWidth;d.classList.add('show')}
-function tab(id){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));['assets','map','logT','lab','bank','hero'].forEach(x=>$('#'+x).style.display=x===id?'':'none')}
+function tab(id){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));['assets','map','logT','lab','bank','hero','pol'].forEach(x=>{const e=$('#'+x);if(e)e.style.display=x===id?'':'none'})}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
 $('#bRules').onclick=rules;$('#bNew').onclick=setup;$('#bSound').onclick=()=>{G.sound=!G.sound;$('#bSound').textContent=G.sound?'🔊':'🔇'};
 $('#bAuto').onclick=()=>{G.autoHuman=!G.autoHuman;$('#bAuto').classList.toggle('main',G.autoHuman);toast(G.autoHuman?'🤖 오토 항해 — AI가 대신 둡니다':'오토 항해 끔');if(G.autoHuman&&G.ask&&!G.ask.done){const a=G.ask;const auto=a.cfg.auto||(()=>(a.opts.find(o=>o.main&&(!o.en||o.en()))||a.opts[0]).v);a.res(auto())}};

@@ -25,10 +25,11 @@ function compassion(){const t=canCompassion();if(t==null)return;const H=G.player
 function breath(){const b=$('#breath');if(!b)return;const t=(performance.now()/1000)%10;const s=t<4?t/4:1-(t-4)/6;b.style.setProperty('--s',(.55+.45*s).toFixed(3));b.dataset.ph=t<4?'들숨':'날숨';b.querySelector('span').textContent=t<4?'들숨':'날숨';requestAnimationFrame(breath)}
 // 음악 UI
 function musicUI(){CosmicMusic.onChange(I=>{$('#track').textContent=`♪ ${I.n}/${CosmicMusic.COUNT} · ${I.genre} · ${I.title} (${OH.HZ[I.el]})`});
- $('#bMusic').onclick=()=>{const on=CosmicMusic.toggle();$('#bMusic').classList.toggle('main',on);if(!on)$('#track').textContent='♪ 음악 꺼짐'};
+ $('#bMusic').onclick=()=>{const on=CosmicMusic.toggle();window.__musicOff=!on;$('#bMusic').classList.toggle('main',on);toast(on?'🎵 우주 음악을 켭니다':'🔇 음악을 껐습니다');if(!on)$('#track').textContent='♪ 음악 꺼짐 (🎵 버튼으로 켜기)'};
  $('#bNext').onclick=()=>{if(window.Tone)Tone.start().then(()=>CosmicMusic.next())};
- document.addEventListener('pointerdown',()=>{if(window.Tone&&G&&G.music!==false&&!CosmicMusic.isPlaying()){CosmicMusic.start().then(()=>$('#bMusic').classList.add('main'))}},{once:true})}
-$('#bMed').onclick=()=>{document.body.classList.toggle('med');const on=document.body.classList.contains('med');if(G){G.speedMul=on?1.6:1}toast(on?'🧘 명상 모드 — 호흡에 맞춰 천천히 흐릅니다':'명상 모드 끔')};
+ const kick=()=>{if(!window.Tone||window.__musicOff||CosmicMusic.isPlaying()||(window.BattleMusic&&BattleMusic.isPlaying()))return;const r=CosmicMusic.start();if(r&&r.then)r.then(()=>{$('#bMusic').classList.add('main');document.removeEventListener('pointerdown',kick);document.removeEventListener('keydown',kick)})};
+ document.addEventListener('pointerdown',kick);document.addEventListener('keydown',kick)}
+$('#bMed').onclick=()=>{document.body.classList.toggle('med');const on=document.body.classList.contains('med');if(G){G.speedMul=on?1.6:1}CosmicMusic.setGenre(on?'명상':null);window.__musicOff=false;if(window.Tone){const r=Tone.start();Promise.resolve(r).then(()=>{CosmicMusic.next();$('#bMusic').classList.add('main')})}toast(on?'🧘 명상 모드 — 싱잉볼과 드론의 명상 음악이 흐르고, 호흡에 맞춰 천천히 흐릅니다':'명상 모드 끔 — 국면에 맞는 음악으로 돌아갑니다')};
 musicUI();breath();
 
 // ================= 27가지 멀티 엔딩 + 엔딩 시네마틱 =================

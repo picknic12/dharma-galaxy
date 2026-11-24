@@ -21,7 +21,7 @@ async function encounter(p){const P=G.players[p];const x=G.monsters.find(m=>m.wi
  else c=odds>=42||P.cash<bribe?'auto':'bribe';
  if(c==='bribe'){P.cash-=bribe;G.pot+=bribe;log(`💸 ${who(p)} ${M.n}에게 통행세 ${fmt(bribe)}`,'sys');return}
  if(c==='peace'){G.monsters.splice(G.monsters.indexOf(x),1);P.karma=(P.karma||0)+1;sealGet(p,M.boss,'화해');chakra(0,3);log(`☮️ ${M.n}이(가) 칼을 내려놓습니다 — "분리에서 연결로." 싸우지 않고 인장을 건넵니다.`,'good');renderMonsters();renderAll();return}
- const r=await battle(p,foe,{title:M.n,auto:c==='auto'});
+ const r=await battle(p,foe,{title:M.n,auto:c==='auto',boss:!!M.boss});
  if(r.win){G.monsters.splice(G.monsters.indexOf(x),1);const cash=Math.round(30+x.lv*25)*(M.boss?3:1);P.cash+=cash;P.know+=x.lv;if(p===0)G.stats.kills2=(G.stats.kills2||0)+1;
   log(`⚔️ ${who(p)} ${M.n} 격파! +${fmt(cash)} · 지식 +${x.lv}`,p===0?'good':'ai');giveCard(p,1+(x.lv>3?1:0),'전리품 카드');if(rnd()<.6)givePotion(p,'전리품 포션');giveItem(p,'전리품');
   if(x.lv>=3&&rnd()<.3)learnSpell(p);if((x.lv>=4&&rnd()<.25)||M.boss)giveRelic(p,M.n+' 처치');if(M.boss)sealGet(p,M.boss,'승리');if(p===0){burst();questEvent('kill',x)}}

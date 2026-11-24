@@ -149,7 +149,7 @@ function finish(reason,who_){
  if(reason==='transcend'){const k=rows.findIndex(r=>r.i===who_);rows.unshift(rows.splice(k,1)[0])}
  const rank=rows.findIndex(r=>r.i===0)+1,H=G.players[0];
  const ev=ScoreGrade.evaluate({netWorth:rows.find(r=>r.i===0).nw,startCash:G.startCash,rank,total:rows.length,bankrupt:H.out});
- const title=reason==='transcend'?(who_===0?'🌌 차원 초월 승리!':`🌌 ${G.players[who_].name}이(가) 차원을 초월했습니다`):reason==='win'?'🏆 승리! 모든 AI가 파산했습니다':reason==='lose'?'💥 파산 — 이번 판은 정보였습니다':`🏁 ${G.maxRounds}일 항해 종료`;
+ const title=reason==='transcend'?(who_===0?'🌌 차원 초월 승리!':`🌌 ${G.players[who_].name}이(가) 차원을 초월했습니다`):reason==='win'?'🏆 승리! 모든 AI가 파산했습니다':reason==='lose'?'💥 파산 — 이번 판은 정보였습니다':(G.timeUp?'⏳ 제한 시간 종료 — 항해를 마칩니다':`🏁 ${G.maxRounds}일 항해 종료`);
  const won=(reason==='transcend'&&who_===0)||reason==='win'||(reason==='round'&&rank===1);
  if(won){sfx('win');burst(true)}else sfx('dead');
  const showResult=()=>modal(`<div class="grade">${ev.grade}</div><h2>${title}</h2><p>순위 <b>${rank}</b> / ${rows.length} · 자산 성장 ×${ev.ratio}</p><p>${ev.comment}</p>${G.ending?`<p style="color:#ffe3a3">🏛 엔딩 ${G.ending.no}/27 · ${G.ending.fam} — 「${esc(G.ending.title)}」 ${G.ending.label}</p>`:''}

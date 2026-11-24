@@ -1,4 +1,4 @@
-# 다르마 갤럭시 · 다갤 (DHARMA GALAXY)
+# 다르마 갤럭시 2027 (DHARMA GALAXY 2027)
 
 > 인간 vs AI · 2.5D 다중우주 경제 전략 + 영웅 원정(턴제 육각 전술 RPG) — 은하문명의 창조자들
 > 저자: 피크닉 신영호 · 임지혜 (이스턴드래곤 출판사)
@@ -6,14 +6,25 @@
 우주가 곧 보드입니다. 지휘관 한 사람이 AI 문명 1~7개와 함께 은하 항로를 돌며 행성 자산을 사고 개발하고, 상대 AI의 다음 수를 읽습니다. 경기의 흐름은 오행의 순환(木→火→土→金→水)과 실제 날짜의 일진(日辰)·별자리·달의 위상을 따라 움직입니다. 흐름은 운명이 아니라 경향이며, 선택은 언제나 지휘관에게 남습니다.
 
 - ▶ 바로 플레이: https://picknic12.github.io/dharma-galaxy/
-- 📖 규칙 안내서: [docs/RULES.md](docs/RULES.md)
+- 📖 규칙 안내서: [docs/RULES.md](docs/RULES.md) · 📕 공략서: [docs/guide.pdf](docs/guide.pdf)
+
+## v0.5 — 아주 쉬운 시작부터
+
+- **시작 메뉴**: 튜토리얼(초등 3학년도 할 수 있는 쉬운 말과 안내) · ☕ 가벼운 한 판(15분) · 🗺 스테이지(5루프 × 6스테이지) · 새 게임 · 🌿 오늘의 마음 쉼 · 불러오기 · 난이도 · 환경 설정 · 나의 성향 · 명예의 전당
+- **게임 길이**: 기초 약 1시간 · 중급 약 3시간 · 고급 약 10시간 (실제 플레이 시간 제한 포함)
+- **단계적 공개**: 처음엔 단순한 화면에서 시작해, 판을 거듭하거나 익숙해지면 은행 → 영웅 원정 → 연구소 → 마법·유물 순으로 열립니다. 넣을 게임 체계(경제·정치·전투·연구소·마법)는 설정에서 고를 수 있습니다.
+- **경제 배움 8과**와 **용호(龍虎) 수련**: 계산(좌뇌)과 직관(우뇌) 문제를 번갈아 풀며 금리·자산 배분·부채·담보·위험과 수익을 익힙니다.
+- **정치·외교**: 은하 의회 표결과 정책, 동맹·불가침 조약
+- **나의 명조**: 양력·음력(윤달) 생년월일시와 남녀로 사주팔자·대운·네이탈 차트를 계산해 이 브라우저에만 저장합니다. 넣고 싶지 않으면 연령대만 고르면 됩니다.
+- **소리**: 부드러운 효과음, 연령대·취향에 맞춘 음악 종류와 효과음 스타일
+- **개인 자료**: 명조·행동 기록·성향 리포트는 모두 각자의 브라우저 안(localStorage·IndexedDB)에만 저장되며 서버로 보내지 않습니다. 설정에서 끄고 지우고 내보낼 수 있습니다.
 
 ## 폴더 구조
 
 | 경로 | 내용 |
 |---|---|
-| `lib/` | 재사용 라이브러리(UMD): picnicRng · ohaengCycle · scoreGrade(사주RPG에서 추출), astroCalendar, spriteKit, multiverse, cosmicMusic, itemCatalog |
-| `src/` | 게임 본체 `game1~12.js`(11·12 = 영웅 원정 · 육각 전투), `style.css`, `index.html` 틀, `rules.html`, `dungeonSfx.js`(사주RPG) |
+| `lib/` | 재사용 라이브러리(UMD): picnicRng · ohaengCycle · scoreGrade(사주RPG에서 추출), astroCalendar, spriteKit, multiverse, cosmicMusic, battleMusic, itemCatalog, astroMath·astroEphemeris·natalChartEngine(사주RPG 천문 코어), sajuChart |
+| `src/` | 게임 본체 `game1~18.js`(11·12 영웅 원정, 13 시작 메뉴·길이·명조, 14 용호·경제 배움, 15 기록·성향·마음 쉼, 16 정치·외교, 17 루프·스테이지, 18 소리), `style.css`, `index.html` 틀, `rules.html`, `dungeonSfx.js`(사주RPG) |
 | `vendor/` | 공개 라이브러리와 라이선스 |
 | `build.py` | 모든 파일을 하나의 HTML(`docs/index.html`)로 묶습니다 |
 | `tests/` | Playwright 자동 대국 테스트 |
@@ -27,6 +38,6 @@ git add -A && git commit -m "수정 내용" && git push   # Pages가 자동으�
 
 ## 사용한 공개 라이브러리
 
-three.js 0.149 (MIT) · Tone.js 14.7.77 (MIT) · anime.js 3.2.2 (MIT) · canvas-confetti 1.9.3 (ISC). 각 라이선스는 `vendor/` 폴더에 있습니다.
+three.js 0.149 (MIT) · Tone.js 14.7.77 (MIT) · anime.js 3.2.2 (MIT) · canvas-confetti 1.9.3 (ISC) · Astronomy Engine 2.1.19 (MIT, 절기 시각) · korean-lunar-calendar 0.4.0 (MIT, 한국천문연구원 기준 음양력). 각 라이선스는 `vendor/` 폴더에 있습니다.
 
 © 2026 피크닉 신영호 · 임지혜 (이스턴드래곤 출판사). 게임 코드와 콘텐츠의 저작권은 저자에게 있습니다.

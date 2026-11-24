@@ -50,10 +50,10 @@ const MON=[
  {n:'해킹 거미',o:{shape:'round',color:'#6b6b8f',legs:'spider',eyes:'angry'},lv:2},{n:'하락장 곰',o:{shape:'round',color:'#b08a6b',ears:'round',belly:1},lv:3},
  {n:'뱀파이어 대부업자',o:{shape:'hood',color:'#5a2d4a',wings:'bat'},lv:4},{n:'거품 드래곤',o:{shape:'round',color:'#ff9fb5',wings:'dragon',horns:1,tail:1,crown:1,fangs:1},lv:5},
  {n:'블랙스완',o:{shape:'bird',color:'#3a3550'},lv:5},{n:'성운 고래 수호신',o:{shape:'blob',color:'#8fd0ff',crown:1},lv:4}];
-function spawnMonster(wid){const w=W(wid);const L=w.spaces.length;const k=ri(0,Math.min(11,3+Math.floor(G.round/4)+w.depth*2));const M=MON[k];const align=rnd()<.5?'빛':'현기';
+function spawnMonster(wid){const w=W(wid);const L=w.spaces.length;const k=ri(0,Math.min(11,3+Math.floor(eR()/4)+w.depth*2));const M=MON[k];const align=rnd()<.5?'빛':'현기';
  G.monsters.push({id:G.mseq++,k,wid,pos:ri(1,L-1),lv:M.lv+w.depth,hp:100,align});}
 function monsterTick(){G.monsters.forEach(x=>{const L=W(x.wid).spaces.length;x.pos=(x.pos+ri(1,3))%L;if(x.pos===0&&W(x.wid).parent)x.pos=1});
- while(G.monsters.filter(x=>x.wid==='W0').length<4+Math.floor(G.round/6))spawnMonster('W0');
+ while(feat('battle')&&G.monsters.filter(x=>x.wid==='W0').length<Math.min(12,4+Math.floor(eR()/6)))spawnMonster('W0');
  for(const wid in G.worlds)if(wid!=='W0'&&!G.monsters.some(x=>x.wid===wid)&&rnd()<.5)spawnMonster(wid);
  renderMonsters()}
 async function encounterQuick(p){const P=G.players[p];const x=G.monsters.find(m=>m.wid===P.wid&&m.pos===P.pos);if(!x)return;const M=MON[x.k];

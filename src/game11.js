@@ -42,7 +42,7 @@ function sideStacks(p,side){const P=G.players[p];const out=[];const col=side?BC-
  return out.slice(0,7).map((o,k)=>Object.assign(mkStack(side,o.u,o.n,o.u.ranged?col:(side?col-1:col+1),[3,1,5,0,6,2,4][k]),{src:o.src,robot:o.robot}))}
 function monsterArmy(x){const M=MON[x.k];const el=M.boss||x.el||pick(ELS);const lv=x.lv;const pool=UNITS.filter(u=>u.el===el&&u.tier<=Math.min(5,1+Math.ceil(lv/2)));const st=[];
  const leader={key:'mon'+x.k+x.align,name:M.n,el,tier:Math.min(5,lv),ranged:0,fly:M.o.wings?1:0,align:x.align,art:Object.assign({},M.o),skill:M.boss?'흡혈':'',hp:Math.round(24*lv*(M.boss?3:1)),atk:3+lv*2,def:3+lv*2,d:[2+lv*2,4+lv*3],spd:4,ini:7,lead:0,cost:lv*20};
- st.push({u:leader,n:M.boss?1:1+Math.floor(lv/3)});const k=Math.min(4,1+Math.floor(lv/2));for(let i=0;i<k;i++){const u=pick(pool);st.push({u,n:Math.max(1,Math.round((3+lv*2.2+G.round*.35)/u.tier/u.tier*1.3))})}
+ st.push({u:leader,n:M.boss?1:1+Math.floor(lv/3)});const k=Math.min(4,1+Math.floor(lv/2));for(let i=0;i<k;i++){const u=pick(pool);st.push({u,n:Math.max(1,Math.round((3+lv*2.2+eR()*.35)/u.tier/u.tier*1.3))})}
  return st.map((o,k)=>mkStack(1,o.u,o.n,o.u.ranged?BC-1:BC-2,[3,1,5,0,6,2,4][k]))}
 function garrison(o,wid,i){const s=sp(wid,i),el=SECT_EL[s.g]||'토';const lv=(own(wid,i).lv||0)+W(wid).depth;const pool=UNITS.filter(u=>u.el===el&&u.tier<=Math.min(5,1+lv));const st=[];
  for(let k=0;k<2+Math.min(3,lv);k++){const u=pick(pool);st.push({u,n:Math.max(1,Math.round((10+lv*8)/u.tier/u.tier*2))})}
@@ -81,7 +81,7 @@ function castInBattle(B,side,s,target){const p=B.pl[side];const P=G.players[p];i
  else if(s.type==='buf'){B.hb[side].atk=(B.hb[side].atk||0)+Math.round(pow/10);B.hb[side].def=(B.hb[side].def||0)+Math.round(pow/12)}
  bLog(B,`🔮 ${side?'적':'아군'} 영웅 「${s.name}」 시전 (위력 ${pow})`);if(B.ui){burst();sfx('merge')}return true}
 async function runBattle(B){let round=0;
- while(round<30){round++;B.round=round;B.cast=[0,0];B.st.forEach(s=>{s.ret=1;s.acted=0;s.defB=0;if(s.u.skill==='재생'&&!s.dead)s.hp=s.u.hp});
+ while(round<30){round++;B.round=round;if(B.ui&&window.BattleMusic){const pw=sd=>B.st.filter(x=>!x.dead&&x.side===sd).reduce((a,s)=>a+stackPow(s),0);const a=pw(0),b=pw(1);BattleMusic.intensity(.38+round*.07+(B.boss?.25:0)+(1-Math.abs(a-b)/(a+b+1))*.25)}B.cast=[0,0];B.st.forEach(s=>{s.ret=1;s.acted=0;s.defB=0;if(s.u.skill==='재생'&&!s.dead)s.hp=s.u.hp});
   const order=B.st.filter(s=>!s.dead).sort((a,b)=>b.u.ini-a.u.ini||a.side-b.side);
   for(const s of order){if(s.dead)continue;if(!enemiesOf(B,s).length)break;if(B.tok!==TOKEN)throw ABORT;B.cur=s;
    if(B.ui&&s.side===0&&!B.auto){bDraw(B);const a=await bHumanTurn(B,s);if(a==='flee'){B.fled=1;return 1}await act(B,s,a)}
@@ -91,10 +91,10 @@ async function runBattle(B){let round=0;
  return B.st.filter(x=>!x.dead&&x.side===0).reduce((a,s)=>a+stackPow(s),0)>=B.st.filter(x=>!x.dead&&x.side===1).reduce((a,s)=>a+stackPow(s),0)?0:1}
 function bLog(B,t){B.log.unshift(t);if(B.log.length>8)B.log.pop();if(B.ui){const e=$('#btLog');if(e)e.innerHTML=B.log.map(esc).join('<br>')}}
 // 전투 시작: p=플레이어, foe=적 스택 배열, opt={title, enemyHero(p2)}
-async function battle(p,foe,opt){const P=G.players[p];const B={st:sideStacks(p,0).concat(foe),ob:obstacles(),hb:[{atk:P.hero.atk,def:P.hero.def},{atk:opt.ehero!=null?G.players[opt.ehero].hero.atk:Math.floor(G.round/6),def:opt.ehero!=null?G.players[opt.ehero].hero.def:Math.floor(G.round/6)}],pl:[p,opt.ehero!=null?opt.ehero:null],log:[],fx:[],tok:TOKEN,title:opt.title||'전투',ui:isHuman(p)&&G.speedMul>0,auto:!!opt.auto,cast:[0,0]};
+async function battle(p,foe,opt){const P=G.players[p];const B={st:sideStacks(p,0).concat(foe),ob:obstacles(),hb:[{atk:P.hero.atk,def:P.hero.def},{atk:opt.ehero!=null?G.players[opt.ehero].hero.atk:Math.floor(eR()/6),def:opt.ehero!=null?G.players[opt.ehero].hero.def:Math.floor(eR()/6)}],pl:[p,opt.ehero!=null?opt.ehero:null],log:[],fx:[],tok:TOKEN,title:opt.title||'전투',ui:isHuman(p)&&G.speedMul>0,auto:!!opt.auto,cast:[0,0]};
  B.st.forEach(s=>B.ob.delete(s.c+','+s.r));const pow0=B.st.filter(s=>s.side===0).reduce((a,s)=>a+stackPow(s),0);
  if(!B.st.some(s=>s.side===0)){bLog(B,'싸울 병력이 없습니다');return finishBattle(p,B,1,opt)}
- if(B.ui)bOpen(B);let res;try{res=await runBattle(B)}finally{if(B.ui)await bClose(B)}
+ B.boss=!!opt.boss;if(B.ui)bOpen(B);let res;try{res=await runBattle(B);B.res=res}finally{if(B.ui)await bClose(B)}
  return finishBattle(p,B,res,opt)}
 function finishBattle(p,B,res,opt){const P=G.players[p];
  // 아군 손실 반영
@@ -109,8 +109,9 @@ function bOpen(B){let o=$('#bt');if(!o){o=document.createElement('div');o.id='bt
  o.innerHTML=`<canvas id="btc"></canvas><div class="bt-top"><b id="btT"></b><span id="btR" class="sub"></span></div><div class="bt-bar" id="btBar"></div><div class="bt-log" id="btLog"></div>`;o.classList.add('show');
  const cv=$('#btc');const fit=()=>{const r=devicePixelRatio>1?1.5:1;B.cw=innerWidth;B.ch=innerHeight;cv.width=B.cw*r;cv.height=B.ch*r;cv.style.width=B.cw+'px';cv.style.height=B.ch+'px';B.ctx=cv.getContext('2d');B.ctx.setTransform(r,0,0,r,0,0);bDraw(B)};B.fit=fit;addEventListener('resize',fit);fit();
  $('#btT').textContent='⚔️ '+B.title;cv.onmousemove=e=>{B.hov=bPick(B,e);bDraw(B)};cv.onclick=e=>{const h=bPick(B,e);if(h&&B.onPick)B.onPick(h)};
- B.anim=true;const loop=()=>{if(!B.anim)return;bDraw(B);requestAnimationFrame(loop)};loop();if(window.CosmicMusic)CosmicMusic.setMood('화')}
-async function bClose(B){B.anim=false;removeEventListener('resize',B.fit);await sleep(B.ui?400:0);const o=$('#bt');if(o)o.classList.remove('show');if(window.CosmicMusic)CosmicMusic.setMood(OH.PHASES[G.phase].el)}
+ B.anim=true;const loop=()=>{if(!B.anim)return;bDraw(B);requestAnimationFrame(loop)};loop();
+ B.music=false;if(window.BattleMusic&&window.Tone&&!window.__musicOff&&G.sound){B.amb=CosmicMusic.isPlaying();CosmicMusic.stop();const foes=B.st.filter(s=>s.side===1);const el=foes.sort((a,b)=>stackPow(b)-stackPow(a))[0].u.el;Promise.resolve(Tone.start()).then(()=>{if(B.anim){BattleMusic.start({el,boss:B.boss});B.music=true}})}}
+async function bClose(B){B.anim=false;removeEventListener('resize',B.fit);if(window.BattleMusic&&BattleMusic.isPlaying())BattleMusic.stop(B.res===0?'win':'lose');await sleep(B.ui?900:0);const o=$('#bt');if(o)o.classList.remove('show');if(window.CosmicMusic){CosmicMusic.setMood(OH.PHASES[G.phase].el);if(B.amb||(B.music&&!window.__musicOff))setTimeout(()=>{if(!CosmicMusic.isPlaying()&&!(window.BattleMusic&&BattleMusic.isPlaying()))CosmicMusic.start()},1800)}}
 function bPick(B,e){let best=null,bd=1e9;for(let r=0;r<BR;r++)for(let c=0;c<BC;c++){const [x,y,sz]=hexXY(B,c,r);const d=Math.hypot(e.clientX-x,(e.clientY-y)*1.6);if(d<bd&&d<sz*.6){bd=d;best=[c,r]}}return best}
 function bDraw(B){const g=B.ctx;if(!g)return;const W_=B.cw,H_=B.ch;const t=performance.now()/1000;
  const bg=g.createLinearGradient(0,0,0,H_);bg.addColorStop(0,'#0b0820');bg.addColorStop(.6,'#1b1240');bg.addColorStop(1,'#2a1a3a');g.fillStyle=bg;g.fillRect(0,0,W_,H_);
