@@ -61,7 +61,7 @@ function rentOf(wid,i,dice){
  const owner=G.players[o.o]; if(owner.day&&owner.day.k==='재성') r*=1.1;
  return Math.round(r);
 }
-function netWorth(p){const P=G.players[p];let v=P.cash;for(const [wid,i] of allOwned(p)){const o=own(wid,i),s=sp(wid,i);v+=o.m?mkt(wid,i)-o.debt:mkt(wid,i);if(s.build)v+=o.lv*s.build*.5}if(P.dep!=null)v+=finWorth(p)+P.robots.reduce((a,r)=>a+r.cost*.5*r.hp/100,0);return Math.round(v)}
+function netWorth(p){const P=G.players[p];let v=P.cash;for(const [wid,i] of allOwned(p)){const o=own(wid,i),s=sp(wid,i);v+=o.m?mkt(wid,i)-o.debt:mkt(wid,i);if(s.build)v+=o.lv*s.build*.5}if(P.dep!=null)v+=(P.hero?armyValue(P)*.5:0)+finWorth(p)+P.robots.reduce((a,r)=>a+r.cost*.5*r.hp/100,0);return Math.round(v)}
 function rate(){return OH.PHASES[G.phase].rate}
 // ---- 개발/담보/매각 규칙 ----
 function canBuild(p,wid,i){const s=sp(wid,i),o=own(wid,i);if(!o||s.type!=='prop'||o.o!==p||o.m||o.lv>=5||!ownsAll(p,wid,s.g))return false;const m=members(wid,s.g);if(m.some(j=>own(wid,j).m))return false;return o.lv<=Math.min(...m.map(j=>own(wid,j).lv))}

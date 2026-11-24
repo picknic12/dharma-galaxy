@@ -10,7 +10,7 @@ function newRound(){
  if(G.maxRounds&&G.round>G.maxRounds){finish('round');return}
  newDayAstro();
  if(--G.phaseLeft<=0){G.phase=(G.phase+1)%5;G.phaseLeft=3;const ph=OH.PHASES[G.phase];if(window.CosmicMusic&&!G.players[0].love)CosmicMusic.setMood(ph.el);log(`☯ 국면 전환: ${OH.HZ[ph.el]} ${ph.name} — ${ph.desc}`,'sys');sfx('start',G.phase%3);showNews(`${OH.HZ[ph.el]} ${ph.name}`,ph.desc+` (담보 이자 ${Math.round(ph.rate*100)}%)`)}
- marketTick();finTick();mpTick();monsterTick();
+ marketTick();finTick();mpTick();monsterTick();bossTick();questEvent('tick');
  // 양자 얽힘 수명
  G.entangle=G.entangle.filter(e=>--e.left>0);
  // 중반부 차원 상승
@@ -88,7 +88,7 @@ function gainShard(p){const P=G.players[p];P.shards++;if(P.shards>=3)chakra(p,7)
 
 // ---------- 이동 ----------
 function isHuman(p){return !G.players[p].isAI&&!G.autoHuman}
-async function salary(p){const P=G.players[p];const sect=new Set(allOwned(p).map(([w,i])=>sp(w,i).g)).size;let s=200+10*sect;if(P.day&&P.day.k==='인성')s=Math.round(s*1.15);addCash(p,s,`🛰️ ${who(p)} 모항성 급여 ${fmt(s)}${sect?` (분산 보너스 ${sect}섹터)`:''}`);if(!P.isAI)sfx('coin');giveCard(p,1,'모항성 보급 카드')}
+async function salary(p){const P=G.players[p];const sect=new Set(allOwned(p).map(([w,i])=>sp(w,i).g)).size;let s=200+10*sect;if(P.day&&P.day.k==='인성')s=Math.round(s*1.15);addCash(p,s,`🛰️ ${who(p)} 모항성 급여 ${fmt(s)}${sect?` (분산 보너스 ${sect}섹터)`:''}`);if(!P.isAI)sfx('coin');giveCard(p,1,'모항성 보급 카드');if(P.hero){const u=UNITS.find(x=>x.el===P.hero.el&&x.tier===1);const n=Math.min(3+P.hero.lvl,Math.floor((leadMax(P)-leadUsed(P))/u.lead));if(n>0){let s=P.hero.army.find(x=>x.u===u.id);if(!s&&P.hero.army.length<5){s={u:u.id,n:0};P.hero.army.push(s)}if(s){s.n+=n;if(p===0)log(`🛡 모항성 의용군 ${u.name} ${n}기 합류`,'good')}}}}
 async function moveBy(p,n){
  const P=G.players[p];const dir=n>0?1:-1;
  for(let k=0;k<Math.abs(n);k++){
@@ -97,6 +97,7 @@ async function moveBy(p,n){
    P.wid=w.parent;P.pos=w.portalIdx;log(`🚪 ${who(p)} 귀환 게이트 통과 → ${W(P.wid).name}`,'sys');onWorldChange(p);
   } else {P.pos=np;if(P.wid==='W0'&&np===0&&dir>0)await salary(p)}
   sfx('step');moveShip(p);await sleep(G.stepMs);
+  if(G.monsters&&k<Math.abs(n)-1&&G.monsters.some(x=>x.wid===P.wid&&x.pos===P.pos)){log(`🚧 ${who(p)} 항로를 가로막은 무리에 붙잡혔습니다!`,'sys');break}
  }
 }
 async function warpTo(p,wid,pos,collect){const P=G.players[p];if(collect&&wid==='W0'&&pos===0&&P.wid==='W0')await salary(p);P.wid=wid;P.pos=pos;onWorldChange(p);moveShip(p,true);sfx('merge');await sleep(500)}
@@ -127,7 +128,7 @@ async function land(p,dice){
    if(P.buff&&P.buff.freeRent){P.buff.freeRent=0;log(`🫥 ${who(p)} 투명 포션으로 통행료 면제!`,'good');renderAll();return}
    let r=rentOf(wid,i,dice);if(P.day&&P.day.k==='관성')r=Math.round(r*1.1);if(G.players[o.o].buff&&G.players[o.o].buff.poison){r=Math.round(r/2);G.players[o.o].buff.poison--}
    log(`💳 ${who(p)} → ${G.players[o.o].name} 통행료 ${fmt(r)} (${s.name})`,'bad');
-   if(G.players[o.o].love)r=Math.round(r*1.1);const ok=await pay(p,r,o.o);if(ok)chakra(o.o,1);
+   if(G.players[o.o].love)r=Math.round(r*1.1);const sgm=await siege(p,o.o,wid,i,r);r=Math.round(r*sgm);const ok=r>0?await pay(p,r,o.o):false;if(ok)chakra(o.o,1);
    if(ok)for(const e of G.entangle){if(e.b[0]===wid&&e.b[1]===i&&e.p!==p&&!G.players[e.p].out){const b=Math.round(r*.5);addCash(e.p,b,`🔗 양자 얽힘 공명 — ${who(e.p)} +${fmt(b)}`)}}
   }
  } else switch(s.type){

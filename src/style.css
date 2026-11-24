@@ -196,3 +196,18 @@ footer{position:fixed;left:10px;bottom:4px;z-index:3;padding:0;font-size:10px;op
 .px2{opacity:.5;background-image:radial-gradient(3px 3px at 60px 90px,rgba(255,230,180,.9),transparent),radial-gradient(2.5px 2.5px at 300px 210px,rgba(180,210,255,.9),transparent),radial-gradient(40px 14px at 180px 300px,rgba(200,150,255,.10),transparent);background-size:520px 380px;filter:blur(.6px)}
 #stage canvas{position:relative;z-index:0}
 @media(max-width:1700px){header>.sub{display:none}}
+
+/* v0.4 영웅 원정 · 육각 전장 */
+#bt{position:fixed;inset:0;z-index:60;display:none}#bt.show{display:block;animation:btIn .5s ease}
+@keyframes btIn{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+#btc{position:absolute;inset:0}
+.bt-top{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:rgba(16,12,40,.7);border:1px solid var(--line);border-radius:14px;padding:6px 16px;font-size:16px;backdrop-filter:blur(6px)}
+.bt-bar{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:94vw;background:rgba(16,12,40,.72);border:1px solid var(--line);border-radius:16px;padding:8px 12px;backdrop-filter:blur(6px)}
+.bt-bar:empty{display:none}.bt-bar select{font:inherit;font-size:13px;background:rgba(20,16,50,.9);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:6px}
+.bt-log{position:absolute;left:14px;bottom:80px;width:min(360px,40vw);font-size:12.5px;line-height:1.5;color:#e8e2ff;background:rgba(16,12,40,.55);border-radius:12px;padding:8px 10px;pointer-events:none}
+.unit{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:4px 0;border-bottom:1px dashed var(--line);font-size:13px}.unit img{width:40px;height:40px}
+.unit.sm{grid-template-columns:30px minmax(0,1fr) auto auto}.unit.sm img{width:30px;height:30px}
+.recruit{max-height:260px;overflow:auto}
+.xpbar{height:5px;border-radius:4px;background:rgba(255,255,255,.12);margin:4px 0;overflow:hidden}.xpbar i{display:block;height:100%;background:linear-gradient(90deg,#8f7cff,#ff8fc6)}
+.seals i{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;margin-right:3px;font-style:normal;font-size:12px;border:1px solid var(--c);color:var(--c);opacity:.45}.seals i.on{opacity:1;background:var(--c);color:#1a1530;box-shadow:0 0 10px var(--c)}
+.tabs button{font-size:12.5px;padding:6px 7px}.tabs kbd{display:none}

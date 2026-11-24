@@ -36,7 +36,7 @@ const END_FAM=[
  ['금융경제','은하 금융제국의 창조자',S=>S.ratio/3],['과학기술','초지능 문명의 설계자',S=>(S.probes+S.ipo*2+S.robots*1.5)/10],['군사전략','은하의 패왕',S=>(S.mna*2+S.kills*3)/8],
  ['연금술','우주적 연금술의 대가',S=>S.shards/5],['지식','은하 아카식 도서관의 건설자',S=>(S.known+S.know/8)/7],['외교','은하연방의 창립자',S=>S.deals/4],
  ['탐험','미지의 우주를 개척한 자',S=>S.depth/4],['정신문화','보병궁 문명의 창조자',S=>(S.chakra/8+S.ethics/100)/2],['통합','은하문명의 대각성',null]];
-function endingOf(){const H=G.players[0],st=G.stats;const S={ratio:netWorth(0)/G.startCash,probes:st.probes,ipo:allOwned(0).filter(([w,i])=>own(w,i).lv===5).length,mna:st.mna,kills:G.players.filter((P,i)=>i&&P.out).length+(st.kills2||0)/3,robots:(H.robots||[]).length,know:H.know||0,shards:H.shards,known:H.known.size,deals:st.deals,depth:st.depth,chakra:(H.ck||[]).filter(Boolean).length,ethics:ethics()};
+function endingOf(){const H=G.players[0],st=G.stats;const S={ratio:netWorth(0)/G.startCash,probes:st.probes,ipo:allOwned(0).filter(([w,i])=>own(w,i).lv===5).length,mna:st.mna,kills:G.players.filter((P,i)=>i&&P.out).length+(st.kills2||0)/3+(H.hero?H.hero.wins/4+H.hero.sieges/2:0),robots:(H.robots||[]).length,know:H.know||0,shards:H.shards,known:H.known.size,deals:st.deals,depth:st.depth,chakra:(H.ck||[]).filter(Boolean).length,ethics:ethics()};
  const sc=END_FAM.slice(0,8).map(f=>Math.min(1.2,f[2](S)));const minv=Math.min(...sc),best=sc.indexOf(Math.max(...sc));
  let k=best,v=sc[best];if(minv>=.45){k=8;v=minv*1.6}
  const tier=v>=.9?3:v>=.5?2:1;return {fam:END_FAM[k][0],title:END_FAM[k][1],tier,label:['','여명','개화','완성'][tier],no:k*3+tier}}

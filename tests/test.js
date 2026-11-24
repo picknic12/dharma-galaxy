@@ -10,7 +10,7 @@ const {chromium}=require('playwright');
   await p.evaluate(([n,seed,rounds])=>{document.getElementById('modal').classList.remove('show');window.__game.start({name:'테스터',birth:'1970-05-05',ai:n,diff:'hard',rounds,speed:'test',seed:String(seed),auto:true})},[n,seed,rounds]);
   const t0=Date.now();
   while(Date.now()-t0<100000){const o=await p.evaluate(()=>window.__game.G.over);if(o)break;await p.waitForTimeout(500)}
-  const r=await p.evaluate(()=>{const G=window.__game.G;return {over:G.over,round:G.round,worlds:Object.keys(G.worlds).length,players:G.players.map(P=>P.name+':'+Math.round(P.cash)+(P.out?'(out)':'')+' s'+P.shards+' r'+P.robots.length+' d'+Math.round(P.dep)+' L'+Math.round(P.loan)+' st'+P.stock+' pot'+P.potions.length),mon:G.monsters.length,kills:G.stats.kills2||0,codex:G.codex.size,title:document.querySelector('#dlg h2')?.textContent,log:G.log.slice(0,3).map(l=>l.t)}});
+  const r=await p.evaluate(()=>{const G=window.__game.G;return {over:G.over,round:G.round,worlds:Object.keys(G.worlds).length,players:G.players.map(P=>P.name+':'+Math.round(P.cash)+(P.out?'(out)':'')+' s'+P.shards+' r'+P.robots.length+' d'+Math.round(P.dep)+' L'+Math.round(P.loan)+' st'+P.stock+' pot'+P.potions.length),mon:G.monsters.length,kills:G.stats.kills2||0,codex:G.codex.size,hero:G.players.map(P=>'L'+P.hero.lvl+' w'+P.hero.wins+' sg'+P.hero.sieges+' seal'+P.hero.seals.length+' a'+Math.round(P.hero.army.reduce((a,s)=>a+s.n,0))).join(' '),q:G.qdone,sp:G.players.map(P=>P.spells.length+'/'+P.relics.length+'/'+Math.round(P.mp)).join(' '),title:document.querySelector('#dlg h2')?.textContent,log:G.log.slice(0,3).map(l=>l.t)}});
   console.log(JSON.stringify(r));
  }
  await p.evaluate(()=>document.getElementById('modal').classList.remove('show'));

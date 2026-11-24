@@ -1,5 +1,5 @@
 // ================= UI =================
-function renderAll(){if(typeof renderLab==='function'&&G){renderLab();renderBank()}renderChakra();renderPlayers();renderMarket();renderAssets();renderAct();renderBoard();renderHeader();renderMap()}
+function renderAll(){if(typeof renderLab==='function'&&G){renderLab();renderBank();renderHero()}renderChakra();renderPlayers();renderMarket();renderAssets();renderAct();renderBoard();renderHeader();renderMap()}
 function renderHeader(){if(!G)return;const ph=OH.PHASES[G.phase];$('#hRound').textContent=`${G.round}${G.maxRounds?'/'+G.maxRounds:''}일차`;$('#hDate').textContent=`${G.date.getFullYear()}.${G.date.getMonth()+1}.${G.date.getDate()} ${G.astro.pillar.hz}日`;$('#hPhase').innerHTML=`${OH.HZ[ph.el]} ${ph.name} <small>${G.phaseLeft}일</small>`;$('#hPot').textContent=`🏦 ${fmt(G.pot)}`;
  $('#astro').innerHTML=`${esc(G.astro.text)}${G.players[0].day?`<br><b style="color:#ffe3a3">나의 흐름: ${esc(G.players[0].day.t)}</b>`:''}`;drawWheel()}
 function drawWheel(){const s=$('#wheel');if(!s)return;const R=40;let h='';OH.EL.forEach((e,k)=>{const a=-Math.PI/2+k*2*Math.PI/5;const x=50+Math.cos(a)*R,y=50+Math.sin(a)*R;const on=k===G.phase;h+=`<circle cx="${x}" cy="${y}" r="${on?13:10}" fill="${OH.COLOR[e]}" opacity="${on?1:.45}" ${on?'stroke="#fff" stroke-width="2"':''}/><text x="${x}" y="${y+5}" text-anchor="middle" font-size="${on?14:11}" fill="#1a1530" font-weight="700">${OH.HZ[e]}</text>`});s.innerHTML=`<circle cx="50" cy="50" r="${R}" fill="none" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 4"/>${h}`}
@@ -92,7 +92,7 @@ function startGame(cfg){
  SKEYS.forEach(k=>{G.idx[k]=100;G.hist[k]=[100]});
  const me={name:cfg.name,isAI:false,color:'#7fd6ff',el:cfg.birth?AC.dayPillar(new Date(cfg.birth+'T12:00:00')).stemEl:null};
  G.players.push(me);(cfg.lineup||PERS.map((_,i)=>i)).slice(0,cfg.ai).forEach(k=>{const P=PERS[k];G.players.push({name:P.name,isAI:true,pers:P,color:P.color,el:P.el})});
- G.players[0].pers=Object.assign({},PERS[0],{quotes:['']});G.players.forEach(P=>Object.assign(P,{cash:G.startCash,wid:'W0',pos:0,jail:false,jt:0,free:0,out:false,dbl:0,shards:0,qdice:1,known:new Set(['W0'])}));G.players.forEach(P=>finInit(P));G.players.forEach((P,i)=>spellInit(P,i));G.codex=new Set();G.recipes=new Set();G.monsters=[];G.mseq=0;
+ G.players[0].pers=Object.assign({},PERS[0],{quotes:['']});G.players.forEach(P=>Object.assign(P,{cash:G.startCash,wid:'W0',pos:0,jail:false,jt:0,free:0,out:false,dbl:0,shards:0,qdice:1,known:new Set(['W0'])}));G.players.forEach(P=>finInit(P));G.players.forEach((P,i)=>spellInit(P,i));G.players.forEach((P,i)=>heroInit(P,i));questInit();G.codex=new Set();G.recipes=new Set();G.monsters=[];G.mseq=0;
  G.players.forEach((P,i)=>{['core','body','power'].forEach(k=>P.cards[k][ri(0,9)]++);giveCard(i,1);givePotion(i)});
  G.phase=R.int(0,4);newDayAstro();
  V.ships.forEach(s=>s.o&&V.shipG.remove(s.o));V.ships=[];if(window.CosmicMusic)CosmicMusic.setMood(OH.PHASES[G.phase].el);
@@ -121,7 +121,7 @@ addEventListener('keydown',e=>{
  else if(k==='p'){$('#bPause').click()}else if(k==='h'){switchView(G.players[0].wid)}else if(k==='1'||k==='2'||k==='3'){const t=['assets','map','logT'][+k-1];tab(t)}
 });
 function toast(t){const d=$('#toast');d.textContent=t;d.classList.remove('show');void d.offsetWidth;d.classList.add('show')}
-function tab(id){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));['assets','map','logT','lab','bank'].forEach(x=>$('#'+x).style.display=x===id?'':'none')}
+function tab(id){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));['assets','map','logT','lab','bank','hero'].forEach(x=>$('#'+x).style.display=x===id?'':'none')}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
 $('#bRules').onclick=rules;$('#bNew').onclick=setup;$('#bSound').onclick=()=>{G.sound=!G.sound;$('#bSound').textContent=G.sound?'🔊':'🔇'};
 $('#bAuto').onclick=()=>{G.autoHuman=!G.autoHuman;$('#bAuto').classList.toggle('main',G.autoHuman);toast(G.autoHuman?'🤖 오토 항해 — AI가 대신 둡니다':'오토 항해 끔');if(G.autoHuman&&G.ask&&!G.ask.done){const a=G.ask;const auto=a.cfg.auto||(()=>(a.opts.find(o=>o.main&&(!o.en||o.en()))||a.opts[0]).v);a.res(auto())}};

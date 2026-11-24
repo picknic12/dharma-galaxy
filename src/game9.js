@@ -50,13 +50,13 @@ const MON=[
  {n:'해킹 거미',o:{shape:'round',color:'#6b6b8f',legs:'spider',eyes:'angry'},lv:2},{n:'하락장 곰',o:{shape:'round',color:'#b08a6b',ears:'round',belly:1},lv:3},
  {n:'뱀파이어 대부업자',o:{shape:'hood',color:'#5a2d4a',wings:'bat'},lv:4},{n:'거품 드래곤',o:{shape:'round',color:'#ff9fb5',wings:'dragon',horns:1,tail:1,crown:1,fangs:1},lv:5},
  {n:'블랙스완',o:{shape:'bird',color:'#3a3550'},lv:5},{n:'성운 고래 수호신',o:{shape:'blob',color:'#8fd0ff',crown:1},lv:4}];
-function spawnMonster(wid){const w=W(wid);const L=w.spaces.length;const k=ri(0,Math.min(MON.length-1,3+Math.floor(G.round/4)+w.depth*2));const M=MON[k];const align=rnd()<.5?'빛':'현기';
+function spawnMonster(wid){const w=W(wid);const L=w.spaces.length;const k=ri(0,Math.min(11,3+Math.floor(G.round/4)+w.depth*2));const M=MON[k];const align=rnd()<.5?'빛':'현기';
  G.monsters.push({id:G.mseq++,k,wid,pos:ri(1,L-1),lv:M.lv+w.depth,hp:100,align});}
 function monsterTick(){G.monsters.forEach(x=>{const L=W(x.wid).spaces.length;x.pos=(x.pos+ri(1,3))%L;if(x.pos===0&&W(x.wid).parent)x.pos=1});
- if(G.monsters.filter(x=>x.wid==='W0').length<3+Math.floor(G.round/10))spawnMonster('W0');
+ while(G.monsters.filter(x=>x.wid==='W0').length<4+Math.floor(G.round/6))spawnMonster('W0');
  for(const wid in G.worlds)if(wid!=='W0'&&!G.monsters.some(x=>x.wid===wid)&&rnd()<.5)spawnMonster(wid);
  renderMonsters()}
-async function encounter(p){const P=G.players[p];const x=G.monsters.find(m=>m.wid===P.wid&&m.pos===P.pos);if(!x)return;const M=MON[x.k];
+async function encounterQuick(p){const P=G.players[p];const x=G.monsters.find(m=>m.wid===P.wid&&m.pos===P.pos);if(!x)return;const M=MON[x.k];
  const ring=hasRing(p);if(ring){ring.c--;if(ring.c<=0)P.relics.splice(P.relics.indexOf(ring),1);log(`💍 ${who(p)} 솔로몬의 반지로 ${M.n}와(과) 대화 — 싸우지 않고 지나갑니다`,'good');chakra(p,4);return}
  const sp_=bestBattleSpell(p);const spB=sp_?sp_.pow*(OH.saeng(G.astro.pillar.stemEl,sp_.el)?1.2:1):0;
  const mp=x.lv*38*(x.hp/100),pp=armyPower(p)+spB;const chance=Math.round(pp/(pp+mp)*100);const bribe=Math.round(15+x.lv*10);
@@ -111,4 +111,4 @@ function loadGame(){let S;try{S=JSON.parse(localStorage.getItem('dagal_save')||'
 function isoView(){const c=V.cam;V.iso=!V.iso;c.ph=V.iso?.8:.955;c.tr=V.iso?22:28;toast(V.iso?'🎥 2.5D 근접 쿼터뷰 (디아블로식)':'🎥 2.5D 전경 쿼터뷰')}
 function fullScreen(){const d=document.documentElement;try{if(!document.fullscreenElement)d.requestFullscreen().catch(()=>toast('전체 화면을 쓸 수 없는 환경입니다'));else document.exitFullscreen()}catch(e){toast('전체 화면을 쓸 수 없는 환경입니다')}}
 $('#bFull').onclick=fullScreen;$('#bPanel').onclick=()=>document.body.classList.toggle('nopanel');$('#bSave').onclick=saveGame;$('#bLoad').onclick=loadGame;
-addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea')||$('#modal').classList.contains('show'))return;const k=e.key.toLowerCase();if(k==='v')isoView();else if(k==='z')fullScreen();else if(k==='q')document.body.classList.toggle('nopanel');else if(k==='s'&&e.ctrlKey){e.preventDefault();saveGame()}else if(k==='4')tab('lab');else if(k==='5')tab('bank')});
+addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea')||$('#modal').classList.contains('show'))return;const k=e.key.toLowerCase();if(k==='v')isoView();else if(k==='z')fullScreen();else if(k==='q')document.body.classList.toggle('nopanel');else if(k==='s'&&e.ctrlKey){e.preventDefault();saveGame()}else if(k==='4')tab('lab');else if(k==='5')tab('bank');else if(k==='6')tab('hero')});
