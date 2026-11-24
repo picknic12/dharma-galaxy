@@ -47,7 +47,21 @@ try{CosmicMusic.onChange(()=>{if(Math.random()<.5)applyAgeMusic()})}catch(e){}
  <label>연령대 <span class="sub">(생년월일을 넣지 않아도 됩니다 · 기본 20~30대)</span></label><div class="seg" id="pAge">${[['2030','20~30대 (기본)']].concat(AGE).map(([v,n])=>`<button class="btn sm ${String(P.age||'')===v||(!P.age&&v==='2030')?'main':''}" data-v="${v}">${n}</button>`).join('')}</div>
  <label>음악 종류</label><div class="seg" id="pGenre">${GENRE_OPT.map(([v,n])=>`<button class="btn sm ${(P.musicGenre||'auto')===v?'main':''}" data-v="${v}">${n}</button>`).join('')}</div>
  <label>효과음 스타일</label><div class="seg" id="pSfxSt">${Object.entries(SFX_STYLE).map(([v,o])=>`<button class="btn sm ${(P.sfxStyle||'soft')===v?'main':''}" data-v="${v}">${o.n}</button>`).join('')}<button class="btn sm" id="pSfxTry">🔔 들어 보기</button></div>
+ <label>보드 이름표</label><div class="seg" id="pLab">${[['imp','중요한 것만 (기본)'],['all','모두'],['none','숨김 (마우스를 올리면 보기)']].map(([v,n])=>`<button class="btn sm ${(P.labels||'imp')===v?'main':''}" data-v="${v}">${n}</button>`).join('')}</div>
  <div class="sub" id="pToneD">지금 소리: ${tone().d||''}</div></div>`);
  const rb=(id,key,after)=>$('#'+id).querySelectorAll('button[data-v]').forEach(b=>b.onclick=()=>{setPref(key,b.dataset.v==='2030'&&key==='age'?'':b.dataset.v);after&&after();pane('set')});
- rb('pAge','age',()=>{applyAgeMusic();SOFT.merge()});rb('pGenre','musicGenre',()=>{applyAgeMusic();try{if(CosmicMusic.isPlaying())CosmicMusic.next()}catch(e){}});rb('pSfxSt','sfxStyle',()=>DungeonSfx.merge());
+ rb('pAge','age',()=>{applyAgeMusic();SOFT.merge()});rb('pGenre','musicGenre',()=>{applyAgeMusic();try{if(CosmicMusic.isPlaying())CosmicMusic.next()}catch(e){}});rb('pSfxSt','sfxStyle',()=>DungeonSfx.merge());rb('pLab','labels');
  $('#pSfxTry').onclick=()=>{DungeonSfx.coin();setTimeout(()=>DungeonSfx.merge(),400);setTimeout(()=>DungeonSfx.win(),1100)}}}
+// ================= 정밀 초상: 자주 나오는 몬스터 12종 · 지휘관 8인 =================
+MON.forEach((M,k)=>{if(k<ArtKit.COUNT)M.o.art=k+1});
+{const _c=SpriteKit.creature;SpriteKit.creature=function(o){if(o&&o.art&&!o.plain){const s=ArtKit.monster(o.art-1,o.glow);if(s)return s}return _c(o)}}
+{const _p=SpriteKit.pawn;const map={'#7fd6ff':'human'};PERS.forEach(P=>map[P.color]=P.key);SpriteKit.pawn=function(color,face,seed){const k=map[color];if(k){const s=ArtKit.commander(k,color);if(s)return s}return _p(color,face,seed)}}
+// 질문 창이 떠 있는 동안 보드 이름표를 흐리게
+{const _ra=renderAct;renderAct=function(){_ra();document.body.classList.toggle('asking',!!(G&&G.ask&&!G.ask.done))}}
+// 보드 이름표: 중요한 것만 기본으로(함대가 선 자리·내 행성·내 다음 몇 칸), 나머지는 마우스를 올리면 나타난다
+function labelMode(){return prefs().labels||'imp'}
+setInterval(()=>{if(!G||!window.V||!V.labels)return;const mode=labelMode();const w=W(V.view);if(!w)return;const imp=new Set();
+ G.players.forEach(P=>{if(!P.out&&P.wid===V.view)imp.add(P.pos)});const H=G.players[0];
+ if(H.wid===V.view&&G.ask&&!G.ask.done)for(let d=0;d<=0;d++)imp.add(H.pos);
+ w.own.forEach((o,i)=>{if(o&&o.o===0)imp.add(i)});
+ V.labels.forEach((d,i)=>{const on=mode==='all'||(mode==='imp'&&imp.has(i));d.classList.toggle('dim',!on);d.classList.toggle('mine',!!(w.own[i]&&w.own[i].o===0))})},400);
