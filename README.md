@@ -19,25 +19,20 @@
 - **소리**: 부드러운 효과음, 연령대·취향에 맞춘 음악 종류와 효과음 스타일
 - **개인 자료**: 명조·행동 기록·성향 리포트는 모두 각자의 브라우저 안(localStorage·IndexedDB)에만 저장되며 서버로 보내지 않습니다. 설정에서 끄고 지우고 내보낼 수 있습니다.
 
-## 폴더 구조
+## v0.5.2
 
-| 경로 | 내용 |
-|---|---|
-| `lib/` | 재사용 라이브러리(UMD): picnicRng · ohaengCycle · scoreGrade(사주RPG에서 추출), astroCalendar, spriteKit, multiverse, cosmicMusic, battleMusic, itemCatalog, astroMath·astroEphemeris·natalChartEngine(사주RPG 천문 코어), sajuChart |
-| `src/` | 게임 본체 `game1~18.js`(11·12 영웅 원정, 13 시작 메뉴·길이·명조, 14 용호·경제 배움, 15 기록·성향·마음 쉼, 16 정치·외교, 17 루프·스테이지, 18 소리), `style.css`, `index.html` 틀, `rules.html`, `dungeonSfx.js`(사주RPG) |
-| `vendor/` | 공개 라이브러리와 라이선스 |
-| `build.py` | 모든 파일을 하나의 HTML(`docs/index.html`)로 묶습니다 |
-| `tests/` | Playwright 자동 대국 테스트 |
+- 내 함대는 빛나는 적광(赤光), 상대 AI는 파랑 계열 · 이동할 때 지나는 칸의 이름과 뜻이 드러났다 사라집니다
+- 첫 소리는 작게 시작해 천천히 커지고, 오른쪽 아래 🔊 버튼으로 언제든 크기·음소거(M 키)를 바꿉니다
+- 기본 난이도 기초(BASIC) · 처음 만나는 칸과 새로 열린 기능을 한 줄로 알려 줘 설명서 없이 익힙니다
+- 기초 단계에서는 생년월일을 묻지 않습니다(환경 설정에서는 언제든 넣을 수 있음)
+- 캐릭터·아이템·판에 은은한 신성기하학·만다라 문양
 
-## 수정 · 재배포
+## 소스 공개 범위
 
-```bash
-python3 build.py          # docs/index.html 다시 만들기
-git add -A && git commit -m "수정 내용" && git push   # Pages가 자동으로 새 버전을 배포
-```
+이 저장소에는 **플레이용 배포본(`docs/`)과 안내 문서만** 둡니다. 게임 원본 소스는 비공개로 관리하며, 배포본의 게임 코드는 압축·난독화되어 있습니다. 함께 쓴 공개 라이브러리는 원본 그대로 포함되어 있고 라이선스 전문은 `LICENSES/`에 있습니다.
 
 ## 사용한 공개 라이브러리
 
-three.js 0.149 (MIT) · Tone.js 14.7.77 (MIT) · anime.js 3.2.2 (MIT) · canvas-confetti 1.9.3 (ISC) · Astronomy Engine 2.1.19 (MIT, 절기 시각) · korean-lunar-calendar 0.4.0 (MIT, 한국천문연구원 기준 음양력). 각 라이선스는 `vendor/` 폴더에 있습니다.
+three.js 0.149 (MIT) · Tone.js 14.7.77 (MIT) · anime.js 3.2.2 (MIT) · canvas-confetti 1.9.3 (ISC) · Astronomy Engine 2.1.19 (MIT, 절기 시각) · korean-lunar-calendar 0.4.0 (MIT, 한국천문연구원 기준 음양력). 각 라이선스는 `LICENSES/` 폴더에 있습니다.
 
 © 2026 피크닉 신영호 · 임지혜 (이스턴드래곤 출판사). 게임 코드와 콘텐츠의 저작권은 저자에게 있습니다.
