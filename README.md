@@ -6,6 +6,7 @@
 우주가 곧 보드입니다. 지휘관 한 사람이 AI 문명 1~7개와 함께 은하 항로를 돌며 행성 자산을 사고 개발하고, 상대 AI의 다음 수를 읽습니다. 경기의 흐름은 오행의 순환(木→火→土→金→水)과 실제 날짜의 일진(日辰)·별자리·달의 위상을 따라 움직입니다. 흐름은 운명이 아니라 경향이며, 선택은 언제나 지휘관에게 남습니다.
 
 - ▶ 바로 플레이: https://picknic12.github.io/dharma-galaxy/
+- 📱 안드로이드·휴대폰: https://picknic12.github.io/dharma-galaxy/m/ (홈 화면에 추가) · APK는 Releases → `android-latest` · [안내](mobile/README.md)
 - 📖 규칙 안내서: [docs/RULES.md](docs/RULES.md) · 📕 공략서: [docs/guide.pdf](docs/guide.pdf)
 
 ## v0.5 — 아주 쉬운 시작부터

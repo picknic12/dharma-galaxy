@@ -1,0 +1,92 @@
+# 다르마 갤럭시 2027 · 안드로이드 APK 자동 빌드
+# 공개 배포본 docs/m/(난독화된 모바일판)을 Capacitor 안드로이드 껍데기에 담아 APK를 만듭니다.
+name: Android APK
+
+on:
+  push:
+    branches: [main, 'claude/**']
+    paths: ['docs/m/**', 'mobile/**', '.github/workflows/android-apk.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+
+      - name: 모바일 배포본 담기 + Capacitor 동기화
+        working-directory: mobile
+        run: |
+          npm ci
+          npm run sync
+
+      - name: 정식 서명 키 (있을 때만)
+        env:
+          KS_B64: ${{ secrets.DG_KEYSTORE_B64 }}
+        if: env.KS_B64 != ''
+        run: |
+          echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          echo "DG_KEYSTORE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+
+      # 시험용 서명 키를 빌드 사이에 재사용 → 새 버전을 덮어 설치하기 쉬움
+      - uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: dg2027-debug-keystore
+
+      - name: APK 빌드
+        working-directory: mobile/android
+        env:
+          DG_VERSION_CODE: ${{ github.run_number }}
+          DG_STORE_PASS: ${{ secrets.DG_STORE_PASS }}
+          DG_KEY_ALIAS: ${{ secrets.DG_KEY_ALIAS }}
+          DG_KEY_PASS: ${{ secrets.DG_KEY_PASS }}
+        run: |
+          chmod +x gradlew
+          mkdir -p ../../out
+          if [ -n "$DG_KEYSTORE" ]; then
+            ./gradlew --no-daemon assembleRelease
+            cp app/build/outputs/apk/release/app-release.apk "../../out/DharmaGalaxy2027-${{ github.run_number }}.apk"
+          else
+            # 정식 키가 아직 없으면 시험용(debug) 서명 APK — 휴대폰 설치·시험에는 충분합니다
+            ./gradlew --no-daemon assembleDebug
+            cp app/build/outputs/apk/debug/app-debug.apk "../../out/DharmaGalaxy2027-${{ github.run_number }}-test.apk"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DharmaGalaxy2027-apk-${{ github.run_number }}
+          path: out/*.apk
+
+      # main에 들어간 빌드는 '최신 안드로이드' 릴리스에 올려 휴대폰에서 바로 받을 수 있게 합니다.
+      - name: 최신 APK 릴리스 갱신
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-latest
+          name: 다르마 갤럭시 2027 · 안드로이드 최신판
+          prerelease: true
+          make_latest: false
+          body: |
+            휴대폰에서 아래 APK를 내려받아 설치하세요. (설정 → '알 수 없는 앱 설치 허용'이 필요할 수 있습니다)
+            빌드 #${{ github.run_number }} · 커밋 ${{ github.sha }}
+            © 피크닉 신영호 · 임지혜 (이스턴드래곤 출판사)
+          files: out/*.apk
